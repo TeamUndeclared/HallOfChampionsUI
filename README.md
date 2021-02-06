@@ -8,7 +8,7 @@ We'd like to make that showcase and have a living repository of projects, screen
 
 ## Authors
 
-Jeremy Penning - https://github.com/pixeljava
-Ricardo Barcenas - https://github.com/ZenAtomsk
-Garrett Cintron - https://github.com/tiggerman120
-Matt Ravenmoore - https://github.com/M-Ravenmoore
+Jeremy Penning - https://github.com/pixeljava  
+Ricardo Barcenas - https://github.com/ZenAtomsk  
+Garrett Cintron - https://github.com/tiggerman120  
+Matt Ravenmoore - https://github.com/M-Ravenmoore  
