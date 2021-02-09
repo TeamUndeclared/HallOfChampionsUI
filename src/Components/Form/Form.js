@@ -56,24 +56,24 @@ function Form(props) {
 
 
 
-  const handleSubmit =(e)=>{
-    e.preventDefault();
-    let formInfo = e.target.elements;
-    // console.log('Project Name:....', formInfo.projectName.value)
-    // console.log('description:....', formInfo.description.value)
-    // console.log('Class level value:....', formInfo.classLevel.value)
-    // console.log('Class Code:....', formInfo.classCode.value)
-    // console.log('Live URL:....', formInfo.isLiveUrl.value)
-    // console.log('Project Tags:....', formInfo.projectTags.value)
+  // const handleSubmit =(e)=>{
+  //   e.preventDefault();
+  //   let formInfo = e.target.elements;
+  //   // console.log('Project Name:....', formInfo.projectName.value)
+  //   // console.log('description:....', formInfo.description.value)
+  //   // console.log('Class level value:....', formInfo.classLevel.value)
+  //   // console.log('Class Code:....', formInfo.classCode.value)
+  //   // console.log('Live URL:....', formInfo.isLiveUrl.value)
+  //   // console.log('Project Tags:....', formInfo.projectTags.value)
     
-    console.log('Looking for Radio:....', formInfo.projectTags[3].defaultChecked)
-    console.log('Looking for Radio:....', formInfo.projectTags[3].checked)
-    console.log('Looking for Radio:....', formInfo.projectTags[3].value)
+  //   console.log('Looking for Radio:....', formInfo.projectTags[3].defaultChecked)
+  //   console.log('Looking for Radio:....', formInfo.projectTags[3].checked)
+  //   console.log('Looking for Radio:....', formInfo.projectTags[3].value)
 
-    // foreach input, if projectTags.checked is true, push projectTags.value into an array
+  //   // foreach input, if projectTags.checked is true, push projectTags.value into an array
 
 
-  }
+  // }
 
   // Do stuff 
   return (
