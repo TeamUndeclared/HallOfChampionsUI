@@ -18,10 +18,10 @@ const ImageSlider = (props) => {
   }
 
   return (
-    props.images.length > 0 && (
+    (
       <div>
         <button onClick={slideLeft}>{"<"}</button>
-        <img src={props.images[index]} alt={index} />
+        <img src={props.images} alt={index} />
         <button onClick={slideRight}>{">"}</button>
       </div>
     )

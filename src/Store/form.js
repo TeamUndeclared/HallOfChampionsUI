@@ -1,3 +1,6 @@
+import { assertExpressionStatement } from "@babel/types";
+import { unstable_createMuiStrictModeTheme } from "@material-ui/core";
+import axios from 'axios';
 let initialState = {
   formData: 
     {
@@ -18,6 +21,18 @@ let initialState = {
     },
 };
 
+const config = {
+  url: 'https://hall-of-fame-uf-dev.herokuapp.com/api/v1/projects/',
+  method: 'POST',
+  header: {
+    'Content-Type': 'application/json'
+  },
+  data: {}
+
+}
+
+
+
 const formStore = (state = initialState, action) => {
   console.log(`formStore ran...`);
   let { type, payload } = action;
@@ -33,7 +48,9 @@ const formStore = (state = initialState, action) => {
         ]
       };
       console.log(`newState: `, newState);
-      // Do a POST here!
+      config.data = payload;
+      axios(config);
+        
       return newState;
 
     case 'RESET':
