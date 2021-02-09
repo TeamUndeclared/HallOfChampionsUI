@@ -1,9 +1,21 @@
 let initialState = {
-  formData: [
+  formData: 
     {
-      name: 'Example'
-    }
-  ],
+      projectName: "",
+      authors: [],
+      description: "",
+      image: [],
+      productionDate: "",
+      classCode: "",
+      githubRepo: "",
+      isLiveStatus: false,
+      isLiveUrl: "",
+      postedBy: "",
+      upvotedBy: [],
+      approved: false,
+      upvotes: 0,
+      tags: []
+    },
 };
 
 const formStore = (state = initialState, action) => {
@@ -21,6 +33,7 @@ const formStore = (state = initialState, action) => {
         ]
       };
       console.log(`newState: `, newState);
+      // Do a POST here!
       return newState;
 
     case 'RESET':
