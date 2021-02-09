@@ -10,13 +10,13 @@ const clickHandler = (e) => {
     <div>
       <h1>MiddleView test text</h1>
       <ul>
-        {props.list.map((listItem, i) => (
+        {/* {props.list.map((listItem, i) => (
           <li key={i}>
             <section>
               {listItem.image}
             </section>
           </li>
-        ))}
+        ))} */}
         <button onClick={clickHandler}><img src="via.placeholder.com/300"></img></button>
       </ul>
 
