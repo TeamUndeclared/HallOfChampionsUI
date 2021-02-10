@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from 'react';
 //const images = 'https://via.placeholder.com/300';
-import { connect } from 'react-redux';
-import { getProjects, deleteData } from '../../../Store/form'
 
-const mapDispatchToProps = { getProjects, deleteData }
+import Pagination from '../../pagination/pagination';
+import { connect } from 'react-redux';
+import { getProjects } from '../../../Store/form'
+import { DataGrid } from '@material-ui/data-grid';
+
+
+
+const mapDispatchToProps = { getProjects }
 
 const ImageSlider = (props) => {
+  const LIMIT = 4;
   const [index, setIndex] = useState(0);
+
+
+
+
+
 
   useEffect(() => {
     console.log(`use effect is being hit`)
     props.getProjects();
   }, [])
 
+  
 
   const slideRight = (props) => {
     console.log(props)
@@ -43,27 +55,33 @@ const ImageSlider = (props) => {
   }
 
   useEffect(() => {
-    console.log(`use effect number 2 is being hit`, props.images.results)
+    console.log(`use effect number 2 is being hit`, props.images.data)
     let test = fx()
     console.log(test)
-  }, [props.images.results])
+  }, [props.images])
 
   return (
-    (
-      <div>
-        <button onClick={slideLeft}>{"<"}</button>
-        {props.images.results.map((image, i) => (
-          <img src={image.image} key={i}/>
-          
-    ))}
-        <button onClick={slideRight}>{">"}</button>
-      </div>
-    )
+
+    <div>
+        imageslider test text
+      <button onClick={slideLeft}>{"<"}</button>
+      <Pagination />
+      {Object.keys(props.images).map((image, i) => (
+        //console.log(props.images[image]);
+        props.images[image].image.map((image, i) => (
+          //console.log(image, i)
+          <img src={image} alt="image" key={i} />
+        ))
+
+      ))}
+      
+      <button onClick={slideRight}>{">"}</button>
+    </div>
   )
 }
 
 const mapStateToProps = state => (console.log(state), {
-  images: state.form,
+  images: state.form.results,
 })
 
 

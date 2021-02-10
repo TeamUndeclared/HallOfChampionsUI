@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {connect} from 'react-redux';
 import ImageSlider from './imageSlider/imageSlider'
-import { getProjects, deleteData } from '../../Store/form'
+import { getProjects } from '../../Store/form'
 
-const mapDispatchToProps = { getProjects, deleteData }
+const mapDispatchToProps = { getProjects }
 
 function SingleView(props) {
   console.log({props})
@@ -32,13 +32,13 @@ function SingleView(props) {
       <button value="Technologies" onClick={clickHandler}>Technologies</button>
       <button value="Team Info" onClick={clickHandler}>Team Info</button>
       <button value="Links" onClick={clickHandler}>Links</button>
-      <button onClick={() => {props.deleteData()}}>DELETE TEMP BUTTON</button>
+      {/* <button onClick={() => {props.deleteData(_id)}}>DELETE TEMP BUTTON</button> */}
     </div>
   )
 }
 
-const mapStateToProps = state => ({
-  placeholder: state.placeholder,
+const mapStateToProps = state => (console.log(state.form.results), {
+  _id: state.results,
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(SingleView);

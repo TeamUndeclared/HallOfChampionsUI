@@ -67,11 +67,14 @@ const formStore = (state = initialState, action) => {
       return {...state, results: responseBody}
 
     case 'DELETE':
-      
       console.log(state, payload)
+      console.log(payload)
       return { 
         trophy: [
-          payload.formData.filter(trophy => trophy !== payload)
+          ...state.results.map((project, i) => {
+            console.log(project)
+            //project.filter(project => project !== payload)
+          })
         ]
       };
 
@@ -112,13 +115,14 @@ export const getData = (response, status) => {
   }
 }
 
-export const deleteData = () => {
-  const data = axios.delete('https://hall-of-fame-uf-dev.herokuapp.com/api/v1/projects/1')
-  return {
-    type: 'DELETE',
-    payload: data
-  }
-}
+// export const deleteData = (_id) => async dispatch => {
+//   console.log(_id)
+//   return axios.delete(`https://hall-of-fame-uf-dev.herokuapp.com/api/v1/projects/${_id}`)
+//     .then(response => {
+//       console.log(`delete response is:`, response)
+//       dispatch(deleteData(response.data))
+//     })
+// }
 
 
 export default formStore;
