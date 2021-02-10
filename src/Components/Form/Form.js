@@ -1,14 +1,25 @@
-
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 
-import "../../Assets/scss/main.scss"
+import "../../Assets/scss/main.scss";
 import './Form.scss';
 
 
@@ -19,32 +30,7 @@ const mapDispatchToProps = { submitForm, resetForm };
 function Form(props) {
   const [isDeployed, setIsDeployed] = React.useState(false);
   const [isApproved, setIsApproved] = React.useState(false);
-
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-      listStyle: 'none',
-      padding: theme.spacing(0.5),
-      margin: 0,
-    },
-    chip: {
-      margin: theme.spacing(0.5),
-    },
-  }));
-  const classes = useStyles();
-
-  const [chipData, setChipData] = React.useState([
-    { key: 0, label: 'React' },
-    { key: 1, label: 'Angular' },
-    { key: 2, label: 'HTML' },
-    { key: 3, label: 'CSS' },
-    { key: 4, label: 'Express' },
-    { key: 5, label: 'NodeJS' },
-    { key: 6, label: 'Mongo DB' },
-    { key: 7, label: 'Material UI' },
-  ]);
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDeployedChange = (event) => {
     //console.log(event.target.value);
@@ -55,6 +41,9 @@ function Form(props) {
     //console.log(event.target.value);
     let radioState = event.target.value === 'true' ? true : false
     setIsApproved(radioState);
+  };
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
   useEffect(() => {
@@ -102,85 +91,103 @@ function Form(props) {
     props.submitForm(sendFormData);
   }
 
-  console.log("Props for formData", props.form.formData);
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+      listStyle: 'none',
+      padding: theme.spacing(0.5),
+      margin: 0,
+      maxWidth: '90vw'
+    },
+    chip: {
+      margin: theme.spacing(0.5),
+    },
+  }));
+  const classes = useStyles();
+
+  const [chipData, setChipData] = React.useState([
+    { key: 0, label: 'React' },
+    { key: 1, label: 'Angular' },
+    { key: 2, label: 'HTML' },
+    { key: 3, label: 'CSS' },
+    { key: 4, label: 'Express' },
+    { key: 5, label: 'NodeJS' },
+    { key: 6, label: 'Mongo DB' },
+    { key: 7, label: 'Material UI' },
+  ]);
 
   return (
-    <div className="Form">
-      <h2>
+    <Paper id="submitForm" className="Form" elevation={12}>
+      <h2 className="formHeader">
         Project Submission
       </h2>
-      <form onSubmit={handleSubmit}>
-        <label for="projectName">
-          Project Name:
-        </label>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <form className="formBody" onSubmit={handleSubmit}>
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectName">Project Name:</InputLabel>
+          <Input id="projectName" variant="outlined" fullWidth required />
+        </FormControl>
         <br />
-        <input id="projectName" name="projectName" required />
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectAuthors">Authors (Comma Separated):</InputLabel>
+          <Input id="projectAuthors" variant="outlined" fullWidth required />
+        </FormControl>
         <br />
-
-        <label for="projectAuthors">
-          Authors (Comma Separated):
-        </label>
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectDescription">Project Description:</InputLabel>
+          <Input id="projectDescription" variant="outlined" fullWidth multiline rows={4} required />
+        </FormControl>
         <br />
-        <input id="projectAuthors" name="projectAuthors" required />
+        <FormControl className="formInput">
+          <KeyboardDatePicker
+            margin="normal"
+            id="projectDate"
+            variant="outlined"
+            label="Production Date"
+            format="MM/dd/yyyy"
+            fullWidth
+            value={selectedDate}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'Change Date',
+            }}
+          />
+        </FormControl>
         <br />
-
-        <label for="projectDescription">
-          Description:
-        </label>
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectClassLevel">Class Level:</InputLabel>
+          <Select native id="projectClassLevel" variant="outlined" fullWidth defaultValue="" required>
+            <optgroup label="Software Development">
+              <option value="SD100">100: Beginner</option>
+              <option value="SD200">200: Foundations</option>
+              <option value="SD300">300: Intermediate</option>
+              <option value="SD400">400: Advanced</option>
+              <option value="SD500">500: Continuing Education</option>
+            </optgroup>
+            <optgroup label="Ops and Cybersecurity">
+              <option value="OC100">100: Beginner</option>
+              <option value="OC200">200: Foundations</option>
+              <option value="OC300">300: Intermediate</option>
+              <option value="OC400">400: Advanced</option>
+            </optgroup>
+          </Select>
+        </FormControl>
         <br />
-        <textarea id="projectDescription" name="projectDescription" required />
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectClassCode">Class Code:</InputLabel>
+          <Input id="projectClassCode" variant="outlined" fullWidth required />
+        </FormControl>
         <br />
-
-        <label for="projectImages">
-          Select project images:
-        </label>
-        <br />
-        <input type="file" id="projectImages" name="projectImages" multiple required />
-        <br />
-
-        <label for="projectDate">
-          Production Date:
-        </label>
-        <br />
-        <input type="date" id="projectDate" name="projectDate" required />
-        <br />
-
-        <label for="projectClassLevel">
-          Class Level:
-        </label>
-        <br />
-        <select id="projectClassLevel" name="projectClassLevel" required>
-          <optgroup label="Software Development">
-            <option value="SD100">100: Beginner</option>
-            <option value="SD200">200: Foundations</option>
-            <option value="SD300">300: Intermediate</option>
-            <option value="SD400">400: Advanced</option>
-            <option value="SD500">500: Continuing Education</option>
-          </optgroup>
-          <optgroup label="Ops and Cybersecurity">
-            <option value="OC100">100: Beginner</option>
-            <option value="OC200">200: Foundations</option>
-            <option value="OC300">300: Intermediate</option>
-            <option value="OC400">400: Advanced</option>
-          </optgroup>
-        </select>
-        <br />
-
-        <label for="projectClassCode">
-          Class Code:
-        </label>
-        <br />
-        <input id="projectClassCode" name="projectClassCode" required />
-        <br />
-
-        <label for="projectGithubUrl">
-          GitHub Repository URL:
-        </label>
-        <br />
-        <input type="url" id="projectGithubUrl" name="projectGithubUrl" required />
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectGithubUrl">GitHub Repository URL:</InputLabel>
+          <Input type="url" id="projectGithubUrl" variant="outlined" fullWidth required />
+        </FormControl>
         <br />
 
-        <fieldset>
+
+        <FormGroup>
           <legend>Is the project currently deployed?</legend>
           <input type="radio" id="isLiveYes" name="IsLiveStatus"
             value="true" onChange={handleDeployedChange} checked={isDeployed === true} required />
@@ -198,7 +205,7 @@ function Form(props) {
               <input type="url" id="projectDeploymentUrl" name="projectDeploymentUrl" />
             </>
           : null }
-        </fieldset>
+        </FormGroup>
         <br />
 
         <label for="projectTags">
@@ -209,10 +216,17 @@ function Form(props) {
         <br />
         <br />
 
+        <label for="projectImages">
+          Select project images:
+        </label>
+        <br />
+        <input type="file" id="projectImages" name="projectImages" multiple required />
+        <br />
+
         <fieldset>
         {/* 
         "postedBy": "",                                   // Required, not shown, attach the user's id
-        */}
+      */}
           <legend>This will eventually be handled outside of the form:</legend>
           <label for="projectPostedBy">
             Posted By:
@@ -227,7 +241,7 @@ function Form(props) {
         "upvotedBy": [],                                  // Shouldn't be set by the front end
         "approved": false,                                // Shouldn't be set by the front end
         "upvotes": 0,                                     // Shouldn't be set by the front end 
-        */}
+      */}
           <legend>This stuff should be handled server-side:</legend>
           <label for="projectUpvotedBy">
             Upvoted By (Comma Separated):
@@ -254,11 +268,12 @@ function Form(props) {
           <br />
 
         </fieldset>
-
-        <input id="submitButton" type="submit"></input>
-        <br /><br />
+        <Button id="submitButton" variant="contained" type="submit" color="primary" endIcon={<CloudUploadIcon />}>
+          Submit Project
+        </Button>
       </form>
-    </div>
+      </MuiPickersUtilsProvider>
+    </Paper>
   );
 }
 

@@ -4,7 +4,7 @@
     background-image: url('../../Assets/images/wall_top_bg.png'), url('../../Assets/images/wall_btm_bg.png');
     background-position: top, bottom;
     background-repeat: repeat-x;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
     height: 70vh;
   }
