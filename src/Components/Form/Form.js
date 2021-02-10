@@ -75,6 +75,13 @@ function Form(props) {
     let upvotedByArr = [];
     formInfo.projectUpvotedBy.value.split(',').forEach(t => { upvotedByArr.push(t.trim())});
 
+    let deployedUrl = ""
+    if (formInfo.projectDeploymentUrl === undefined) {
+      deployedUrl = null;
+    } else {
+      deployedUrl = formInfo.projectDeploymentUrl.value;
+    }
+
     let sendFormData = {
       "projectName": formInfo.projectName.value,
       "authors": authorArr,
@@ -85,11 +92,11 @@ function Form(props) {
       "courseLevel": formInfo.projectClassLevel.value,
       "githubRepo": formInfo.projectGithubUrl.value,
       "isLiveStatus": isDeployed,
-      "isLiveUrl": formInfo.projectDeploymentUrl.value, // Not Required
+      "isLiveUrl": deployedUrl,                         // Not Required
       "tags": tagArr,                                   // Not Required
       "postedBy": formInfo.projectPostedBy.value,       // Required, not shown, attach the user's id
       "upvotedBy": upvotedByArr,                        // Shouldn't be set by the front end
-      "approved": isApproved, // Shouldn't be set by the front end
+      "approved": isApproved,                           // Shouldn't be set by the front end
       "upvotes": 0,                                     // Shouldn't be set by the front end
     }
     props.submitForm(sendFormData);
@@ -99,11 +106,6 @@ function Form(props) {
 
   return (
     <div className="Form">
-      {/* <pre>formData:
-      {Object.keys(props.form.formData).map((data, idx) => (
-        <pre key={idx}><strong>{data}</strong>: {props.form.formData[data]}</pre>
-      ))}
-      </pre> */}
       <h2>
         Project Submission
       </h2>
