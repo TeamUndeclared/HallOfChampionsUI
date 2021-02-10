@@ -1,0 +1,10 @@
+#mainView {
+  &.Main {
+    margin: 5vh auto;
+    height: 60vh;
+    width: 90vw;
+    max-width: 960px;
+    overflow-y: scroll;
+    text-align: left;
+  }
+}
