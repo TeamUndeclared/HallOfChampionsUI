@@ -7,7 +7,9 @@ function Floor() {
 
   // Do stuff 
   return (
-    <div id="floor" className="Floor"></div>
+    <div id="floor" className="Floor">
+      This is the floor
+    </div>
   );
 }
 

@@ -7,7 +7,9 @@ function Ceiling() {
 
   // Do stuff 
   return (
-    <div id="ceiling" className="Ceiling"></div>
+    <div id="ceiling" className="Ceiling">
+      This is the ceiling
+    </div>
   );
 }
 
