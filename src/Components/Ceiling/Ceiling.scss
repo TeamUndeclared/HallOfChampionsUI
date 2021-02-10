@@ -1,5 +1,11 @@
 #ceiling {
   &.Ceiling {
-    background-color: fuchsia;
+    background-color: rgb(255,254,250);
+    background-image: url('../../Assets/images/ceiling_bg.png');
+    background-position: top center;
+    background-repeat: no-repeat;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: 15vh;
   }
 }

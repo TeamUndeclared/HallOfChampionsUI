@@ -1,0 +1,11 @@
+#hallway {
+  &.Hallway {
+    background-color: rgb(255,254,250);
+    background-image: url('../../Assets/images/wall_top_bg.png'), url('../../Assets/images/wall_btm_bg.png');
+    background-position: top, bottom;
+    background-repeat: repeat-x;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: 70vh;
+  }
+}
