@@ -2,17 +2,15 @@ import React from 'react';
 
 import "../../Assets/scss/main.scss"
 import './Hallway.scss';
-import Form from '../Form/Form';
+import Main from '../Main/Main';
 import SingleView from '../singleView/singleView';
 
 function Hallway() {
 
   return (
     <div id="hallway" className="Hallway">
-      This is the hallway
-      <section>Code Fellows Hall of Champions</section>
-      <section>dynamically rendered case</section>
-      <Form />
+      
+      <Main />
       {/* 
         Or: 
         <Main /> // A component with a collection of cases, min/max 8, preset 4 by default
