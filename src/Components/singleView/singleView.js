@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
-
+import {connect} from 'react-redux';
 import ImageSlider from './imageSlider/imageSlider'
+import { getProjects } from '../../Store/form'
 
-
+const mapDispatchToProps = { getProjects }
 
 function SingleView(props) {
-  
+  console.log({props})
   const [query, setQuery] = useState('');
+
+  
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,8 +32,13 @@ function SingleView(props) {
       <button value="Technologies" onClick={clickHandler}>Technologies</button>
       <button value="Team Info" onClick={clickHandler}>Team Info</button>
       <button value="Links" onClick={clickHandler}>Links</button>
+      {/* <button onClick={() => {props.deleteData(_id)}}>DELETE TEMP BUTTON</button> */}
     </div>
   )
 }
 
-export default SingleView;
+const mapStateToProps = state => (console.log(state.form.results), {
+  _id: state.results,
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(SingleView);
