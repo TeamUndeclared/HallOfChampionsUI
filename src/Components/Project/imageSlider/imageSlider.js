@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 //const images = 'https://via.placeholder.com/300';
 
-import Pagination from '../../pagination/pagination';
 import { connect } from 'react-redux';
 import { getProjects } from '../../../Store/form'
 import { DataGrid } from '@material-ui/data-grid';
@@ -65,7 +64,7 @@ const ImageSlider = (props) => {
     <div>
         imageslider test text
       <button onClick={slideLeft}>{"<"}</button>
-      <Pagination />
+      
       {Object.keys(props.images).map((image, i) => (
         //console.log(props.images[image]);
         props.images[image].image.map((image, i) => (

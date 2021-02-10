@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-
-import { makeStyles, Paper, Card, CardMedia, CardContent } from '@material-ui/core';
+import {Link} from 'react-router-dom';
+import { makeStyles, Paper, Card, CardMedia, CardContent, Button} from '@material-ui/core';
 
 import "../../Assets/scss/main.scss";
 import './Case.scss';
@@ -46,10 +46,13 @@ function Main(props) {
           <h1>{props.projects[project].projectName}</h1>
           </CardContent>
 
-
+          <Link to={`/project/${props.projects[project]._id}`}>
+            <Button href={`/project/${props.projects[project]._id}`}>View Project</Button>
+          </Link>
 
         </Card>
       ))}
+      
     </Paper>
   );
 }
