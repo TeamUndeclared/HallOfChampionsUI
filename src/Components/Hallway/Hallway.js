@@ -3,7 +3,6 @@ import React from 'react';
 import "../../Assets/scss/main.scss"
 import './Hallway.scss';
 import Main from '../Main/Main';
-import SingleView from '../singleView/singleView';
 
 function Hallway() {
 

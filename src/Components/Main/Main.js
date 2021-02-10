@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { makeStyles, Paper, Card, CardMedia, CardContent } from '@material-ui/core';
-
+import Case from '../Case/Case';
 
 import "../../Assets/scss/main.scss";
 import './Main.scss';
@@ -14,44 +14,17 @@ const mapDispatchToProps = { getProjects };
 function Main(props) {
 
   useEffect(() => {
-    console.log(`use effect is being hit`);
+    console.log(`Getting all projects`);
     props.getProjects();
   }, []);
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-      listStyle: 'none',
-      padding: theme.spacing(0.5),
-      margin: 0,
-      maxWidth: '90vw'
-    },
-    media: {
-      height: 140,
-    },
-  }));
-  const classes = useStyles();
-
   return (
-    <Paper className="Main" id="mainView">
-      {Object.keys(props.projects).map((project, i) => (
-        <Card key={i}>
-          <CardMedia 
-          className={classes.media}
-          image={props.projects[project].image[0]}
-          title="An image of the project"
-          />
-          <CardContent>
-          <h1>{props.projects[project].projectName}</h1>
-          </CardContent>
-
-
-
-        </Card>
-      ))}
-    </Paper>
+    <>
+      <Case />
+      <Case />
+      <Case />
+      <Case />
+    </>
   );
 }
 
