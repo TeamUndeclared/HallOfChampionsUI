@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-
+import { BrowserRouter} from 'react-router-dom';
 import './App.css';
 import Ceiling from './Components/Ceiling/Ceiling';
 import Hallway from './Components/Hallway/Hallway';
@@ -12,11 +12,14 @@ const mapDispatchToProps = { submitForm, resetForm };
 
 function App() {
   return (
-    <div className="App">
-      <Ceiling />
-      <Hallway />
-      <Floor />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Ceiling />
+        <Hallway />
+        <Floor />
+      </div>
+    </BrowserRouter>
+    
   );
 }
 
