@@ -5,14 +5,11 @@ import { Route, Switch } from 'react-router-dom';
 import "../../Assets/scss/main.scss"
 import './Hallway.scss';
 import Form from '../Form/Form';
-import Project from '../singleView/singleView';
-import Case from '../middleView/middleView';
+import Project from '../Project/Project';
+import Case from '../Case/Case';
 import Admin from '../Admin/Admin';
 import Main from '../Main/Main';
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
 function Hallway() {
 
@@ -22,10 +19,10 @@ function Hallway() {
         <Route exact path="/">
           <Main />
         </Route>
-        <Route path="/case/:type">
+        <Route path="/case">
           <Case />
         </Route>
-        <Route path="/project/:_id">
+        <Route path="/project">
           <Project />
         </Route>
         <Route path="/admin">
