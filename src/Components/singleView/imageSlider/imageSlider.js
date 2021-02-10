@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 //const images = 'https://via.placeholder.com/300';
 import { connect } from 'react-redux';
+import { getProjects, deleteData } from '../../../Store/form'
 
-
+const mapDispatchToProps = { getProjects, deleteData }
 
 const ImageSlider = (props) => {
   const [index, setIndex] = useState(0);
 
-
+  useEffect(() => {
+    console.log(`use effect is being hit`)
+    props.getProjects();
+  }, [])
 
 
   const slideRight = (props) => {
@@ -26,11 +30,11 @@ const ImageSlider = (props) => {
 
   const fx = () => {
     //return a set of tags
-    if (props.images.results.data) {
+    if (props.images.data) {
       return (
         <pre>formData:
-          {Object.keys(props.images.results.data).map((data, idx) => (
-            <pre key={idx}><strong>{data}</strong>: {props.images.results.data[data]}</pre>
+          {Object.keys(props.images.data).map((data, idx) => (
+            <pre key={idx}><strong>{data}</strong>: {props.images.data[data]}</pre>
           ))}
         </pre>
       )
@@ -58,9 +62,9 @@ const ImageSlider = (props) => {
   )
 }
 
-const mapStateToProps = state => (console.log(state.form), {
+const mapStateToProps = state => (console.log(state), {
   images: state.form,
 })
 
 
-export default connect(mapStateToProps)(ImageSlider);
+export default connect(mapStateToProps, mapDispatchToProps)(ImageSlider);

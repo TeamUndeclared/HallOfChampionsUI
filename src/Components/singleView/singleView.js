@@ -9,10 +9,7 @@ function SingleView(props) {
   console.log({props})
   const [query, setQuery] = useState('');
 
-  useEffect(() => {
-    console.log(`use effect is being hit`)
-    props.getProjects();
-  }, [])
+  
 
   
 
