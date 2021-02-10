@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
-
+import {connect} from 'react-redux';
 import ImageSlider from './imageSlider/imageSlider'
+import { getProjects, deleteData } from '../../Store/form'
 
-
+const mapDispatchToProps = { getProjects, deleteData }
 
 function SingleView(props) {
-  
+  console.log({props})
   const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    console.log(`use effect is being hit`)
+    props.getProjects();
+  }, [])
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,8 +35,13 @@ function SingleView(props) {
       <button value="Technologies" onClick={clickHandler}>Technologies</button>
       <button value="Team Info" onClick={clickHandler}>Team Info</button>
       <button value="Links" onClick={clickHandler}>Links</button>
+      <button onClick={() => {props.deleteData()}}>DELETE TEMP BUTTON</button>
     </div>
   )
 }
 
-export default SingleView;
+const mapStateToProps = state => ({
+  placeholder: state.placeholder,
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(SingleView);

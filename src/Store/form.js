@@ -1,43 +1,38 @@
 import { assertExpressionStatement } from "@babel/types";
 import { unstable_createMuiStrictModeTheme } from "@material-ui/core";
 import axios from 'axios';
+
 let initialState = {
-  formData: 
-    {
-      projectName: "",
-      authors: [],
-      description: "",
-      image: [],
-      productionDate: "",
-      classCode: "",
-      githubRepo: "",
-      isLiveStatus: false,
-      isLiveUrl: "",
-      postedBy: "",
-      upvotedBy: [],
-      approved: false,
-      upvotes: 0,
-      tags: []
-    },
+  formData:
+  {
+    projectName: "",
+    authors: [],
+    description: "",
+    image: [],
+    productionDate: "",
+    classCode: "",
+    githubRepo: "",
+    isLiveStatus: false,
+    isLiveUrl: "",
+    postedBy: "",
+    upvotedBy: [],
+    approved: false,
+    upvotes: 0,
+    tags: []
+  },
+  results: {
+
+  }
 };
 
-const config = {
-  url: 'https://hall-of-fame-uf-dev.herokuapp.com/api/v1/projects/',
-  method: 'POST',
-  header: {
-    'Content-Type': 'application/json'
-  },
-  data: {}
-
-}
 
 
 
 const formStore = (state = initialState, action) => {
-  console.log(`formStore ran...`);
+  console.log(`formStore ran...`, state);
   let { type, payload } = action;
-  console.log({type},{payload});
-  console.log({state});
+  console.log({ type }, { payload });
+  console.log({ state });
 
   switch (type) {
     case 'SUBMIT_FORM':
@@ -48,9 +43,17 @@ const formStore = (state = initialState, action) => {
         ]
       };
       console.log(`newState: `, newState);
-      config.data = payload;
-      axios(config);
-        
+//get should be an action not a reducer
+
+      axios({
+        url: 'https://hall-of-fame-uf-dev.herokuapp.com/api/v1/projects/',
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/json'
+        },
+        data: payload
+      });
+
       return newState;
 
     case 'RESET':
@@ -58,11 +61,25 @@ const formStore = (state = initialState, action) => {
       // Or maybe that should happen after this returns something to the state/DOM.
       return initialState;
 
+    case 'GET':
+      let { responseBody, responseStatus } = payload
+      console.log(responseBody)
+      return {...state, results: responseBody}
+
+    case 'DELETE':
+      
+      console.log(state, payload)
+      return { 
+        trophy: [
+          payload.formData.filter(trophy => trophy !== payload)
+        ]
+      };
+
+
     default:
       return state;
   }
 };
-
 export const submitForm = (data) => {
   return {
     type: 'SUBMIT_FORM',
@@ -75,5 +92,33 @@ export const resetForm = () => {
     type: 'RESET',
   };
 };
+
+export const getProjects = (payload) =>async dispatch => {
+  //requestOptions.body = await payload;
+  return axios.get('https://hall-of-fame-uf-dev.herokuapp.com/api/v1/projects/')
+    .then(response => {
+        console.log(`Response is: `, response);
+        dispatch(getData(response.data, response.status));
+  })
+}
+
+export const getData = (response, status) => {
+  return {
+    type: 'GET',
+    payload: {
+      responseBody: response,
+      responseStatus: status
+    },
+  }
+}
+
+export const deleteData = () => {
+  const data = axios.delete('https://hall-of-fame-uf-dev.herokuapp.com/api/v1/projects/1')
+  return {
+    type: 'DELETE',
+    payload: data
+  }
+}
+
 
 export default formStore;

@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 //const images = 'https://via.placeholder.com/300';
+import { connect } from 'react-redux';
+
+
+
 const ImageSlider = (props) => {
   const [index, setIndex] = useState(0);
+
+
+
 
   const slideRight = (props) => {
     console.log(props)
@@ -17,23 +24,43 @@ const ImageSlider = (props) => {
     }
   }
 
+  const fx = () => {
+    //return a set of tags
+    if (props.images.results.data) {
+      return (
+        <pre>formData:
+          {Object.keys(props.images.results.data).map((data, idx) => (
+            <pre key={idx}><strong>{data}</strong>: {props.images.results.data[data]}</pre>
+          ))}
+        </pre>
+      )
+    }
+
+  }
+
+  useEffect(() => {
+    console.log(`use effect number 2 is being hit`, props.images.results)
+    let test = fx()
+    console.log(test)
+  }, [props.images.results])
+
   return (
     (
       <div>
         <button onClick={slideLeft}>{"<"}</button>
-        <img src={props.images} alt={index} />
+        {props.images.results.map((image, i) => (
+          <img src={image.image} key={i}/>
+          
+    ))}
         <button onClick={slideRight}>{">"}</button>
       </div>
     )
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    images: state.image
-    //images should be an array when imported
-  }
-}
+const mapStateToProps = state => (console.log(state.form), {
+  images: state.form,
+})
 
 
-export default ImageSlider
+export default connect(mapStateToProps)(ImageSlider);
