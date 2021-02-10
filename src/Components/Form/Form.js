@@ -4,11 +4,23 @@ import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 
-import "../../Assets/scss/main.scss"
+import "../../Assets/scss/main.scss";
 import './Form.scss';
 
 
@@ -17,12 +29,65 @@ import { submitForm, resetForm } from "../../Store/form";
 const mapDispatchToProps = { submitForm, resetForm };
 
 function Form(props) {
+  const [isDeployed, setIsDeployed] = React.useState(false);
+  const [isApproved, setIsApproved] = React.useState(false);
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+
+  const handleDeployedChange = (event) => {
+    //console.log(event.target.value);
+    let radioState = event.target.value === 'true' ? true : false
+    setIsDeployed(radioState);
+  };
+  const handleApprovedChange = (event) => {
+    //console.log(event.target.value);
+    let radioState = event.target.value === 'true' ? true : false
+    setIsApproved(radioState);
+  };
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  useEffect(() => {
+    console.log(`isApproved was changed to:`, isApproved);
+  }, [isApproved]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     let formInfo = event.target.elements;
+    console.log(formInfo);
+    // Need handling for authors. Convert CSL to array.
+    let authorArr = [];
+    formInfo.projectAuthors.value.split(',').forEach(t => { authorArr.push(t.trim())});
+    // Need handling for tags. Convert CSL to array.
+    let tagArr = [];
+    formInfo.projectTags.value.split(',').forEach(t => { tagArr.push(t.trim())});
+    // Need handling for upvotedBy. Convert CSL to array.
+    let upvotedByArr = [];
+    formInfo.projectUpvotedBy.value.split(',').forEach(t => { upvotedByArr.push(t.trim())});
+
+    let deployedUrl = ""
+    if (formInfo.projectDeploymentUrl === undefined) {
+      deployedUrl = null;
+    } else {
+      deployedUrl = formInfo.projectDeploymentUrl.value;
+    }
+
     let sendFormData = {
-      name: formInfo.textTest.value
+      "projectName": formInfo.projectName.value,
+      "authors": authorArr,
+      "description": formInfo.projectDescription.value,
+      "image": formInfo.projectImages.value,
+      "productionDate": formInfo.projectDate.value,
+      "classCode": formInfo.projectDescription.value,
+      "courseLevel": formInfo.projectClassLevel.value,
+      "githubRepo": formInfo.projectGithubUrl.value,
+      "isLiveStatus": isDeployed,
+      "isLiveUrl": deployedUrl,                         // Not Required
+      "tags": tagArr,                                   // Not Required
+      "postedBy": formInfo.projectPostedBy.value,       // Required, not shown, attach the user's id
+      "upvotedBy": upvotedByArr,                        // Shouldn't be set by the front end
+      "approved": isApproved,                           // Shouldn't be set by the front end
+      "upvotes": 0,                                     // Shouldn't be set by the front end
     }
     props.submitForm(sendFormData);
   }
@@ -35,13 +100,14 @@ function Form(props) {
       listStyle: 'none',
       padding: theme.spacing(0.5),
       margin: 0,
+      maxWidth: '90vw'
     },
     chip: {
       margin: theme.spacing(0.5),
     },
   }));
-
   const classes = useStyles();
+
   const [chipData, setChipData] = React.useState([
     { key: 0, label: 'React' },
     { key: 1, label: 'Angular' },
@@ -51,132 +117,164 @@ function Form(props) {
     { key: 5, label: 'NodeJS' },
     { key: 6, label: 'Mongo DB' },
     { key: 7, label: 'Material UI' },
-
   ]);
 
-
-
-  const handleSubmit =(e)=>{
-    e.preventDefault();
-    let formInfo = e.target.elements;
-    // console.log('Project Name:....', formInfo.projectName.value)
-    // console.log('description:....', formInfo.description.value)
-    // console.log('Class level value:....', formInfo.classLevel.value)
-    // console.log('Class Code:....', formInfo.classCode.value)
-    // console.log('Live URL:....', formInfo.isLiveUrl.value)
-    // console.log('Project Tags:....', formInfo.projectTags.value)
-    
-    console.log('Looking for Radio:....', formInfo.projectTags[3].defaultChecked)
-    console.log('Looking for Radio:....', formInfo.projectTags[3].checked)
-    console.log('Looking for Radio:....', formInfo.projectTags[3].value)
-
-    // foreach input, if projectTags.checked is true, push projectTags.value into an array
-
-
-  }
-
-  // Do stuff 
   return (
-    <div className="Form">
-      <form onSubmit={handleSubmit}>
-        <label for="textTest">Text Test:
-          <input id="textTest" name="textTest" />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-      <pre>formData:
-      {props.form.formData.map((data, idx) => (
-        <p key={idx}>{idx}: {data.name}</p>
-      ))}
-      </pre>
-
-      <form onSubmit={handleSubmit}>
-        <label>
-          Project Submission
-        </label>
+    <Paper id="submitForm" className="Form" elevation={12}>
+      <h2 className="formHeader">
+        Project Submission
+      </h2>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <form className="formBody" onSubmit={handleSubmit}>
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectName">Project Name:</InputLabel>
+          <Input id="projectName" variant="outlined" fullWidth required />
+        </FormControl>
+        <br />
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectAuthors">Authors (Comma Separated):</InputLabel>
+          <Input id="projectAuthors" variant="outlined" fullWidth required />
+        </FormControl>
+        <br />
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectDescription">Project Description:</InputLabel>
+          <Input id="projectDescription" variant="outlined" fullWidth multiline rows={4} required />
+        </FormControl>
+        <br />
+        <FormControl className="formInput">
+          <KeyboardDatePicker
+            margin="normal"
+            id="projectDate"
+            variant="outlined"
+            label="Production Date"
+            format="MM/dd/yyyy"
+            fullWidth
+            value={selectedDate}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'Change Date',
+            }}
+          />
+        </FormControl>
+        <br />
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectClassLevel">Class Level:</InputLabel>
+          <Select native id="projectClassLevel" variant="outlined" fullWidth defaultValue="" required>
+            <optgroup label="Software Development">
+              <option value="SD100">100: Beginner</option>
+              <option value="SD200">200: Foundations</option>
+              <option value="SD300">300: Intermediate</option>
+              <option value="SD400">400: Advanced</option>
+              <option value="SD500">500: Continuing Education</option>
+            </optgroup>
+            <optgroup label="Ops and Cybersecurity">
+              <option value="OC100">100: Beginner</option>
+              <option value="OC200">200: Foundations</option>
+              <option value="OC300">300: Intermediate</option>
+              <option value="OC400">400: Advanced</option>
+            </optgroup>
+          </Select>
+        </FormControl>
+        <br />
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectClassCode">Class Code:</InputLabel>
+          <Input id="projectClassCode" variant="outlined" fullWidth required />
+        </FormControl>
+        <br />
+        <FormControl className="formInput">
+          <InputLabel htmlfor="projectGithubUrl">GitHub Repository URL:</InputLabel>
+          <Input type="url" id="projectGithubUrl" variant="outlined" fullWidth required />
+        </FormControl>
         <br />
 
-        <label for="projectName">
-          Project Name:
+
+        <FormGroup>
+          <legend>Is the project currently deployed?</legend>
+          <input type="radio" id="isLiveYes" name="IsLiveStatus"
+            value="true" onChange={handleDeployedChange} checked={isDeployed === true} required />
+          <label for="isLiveYes">Yes</label>
+          <input type="radio" id="isLiveNo" name="IsLiveStatus"
+            value="false" onChange={handleDeployedChange} checked={isDeployed === false} required />
+          <label for="isLiveYes">No</label>
           <br />
-          <input id="projectName" name="projectName" />
-
-        </label>
+          { isDeployed ?
+            <>
+              <label for="projectDeploymentUrl">
+                Deployed URL:
+              </label>
+              <br />
+              <input type="url" id="projectDeploymentUrl" name="projectDeploymentUrl" />
+            </>
+          : null }
+        </FormGroup>
         <br />
-        <label for="description">
-          Description:
-          <br />
-          <textarea id="description" name="description" />
 
-        </label>
-        <br />
-        <label for="classLevel">
-          Class Level:
-          <br />
-          <select id="classLevel" name="classLevel">
-            <option value="101">101</option>
-            <option value="102">102</option>
-            <option value="201">201</option>
-            <option value="301">301</option>
-            <option value="401JavaScript">401 JavaScript</option>
-            <option value="401DotNet">401 .Net</option>
-            <option value="401Java">401 Java</option>
-            <option value="401Python">401 Python</option>
-
-          </select>
-        </label>
-        <br />
-        <label for="classCode">
-          Class Code:
-          <br />
-          <input id="classCode" name="classCode" />
-
-        </label>
-        <br />
-        <label for="isLiveUrl">
-          Deployed URL site:
-          <br />
-          <input id="isLiveUrl" name="isLiveUrl" />
-
-        </label>
-        <br />
         <label for="projectTags">
-          Framework/libraries/tools used:
-          <br />
-          <input id="projectTags" name="projectTags" />
-
+          Framework/Libraries/Tools Used (Comma Separated):
         </label>
         <br />
-        <section for="projectTags">
-          Framework/libraries/tools checkbox:
-          <br />
-          <section id="checkboxLabels">
-
-            <label>
-              <input id="projectTags" name="projectTags" type="checkbox" value="html" defaultChecked="false" />
-              html
-            </label>
-            <label>
-              <input id="projectTags" name="projectTags" type="checkbox" value="react" />
-              react
-            </label>
-            <label>
-              <input id="projectTags" name="projectTags" type="checkbox" value="express" />
-              express
-            </label>
-          </section>
-
-        </section>
+        <input id="projectTags" name="projectTags" />
         <br />
-        <label for="myfile">
-          Select files/Upload images:
-          <input id="file" type="file" name="myfile" multiple />
+        <br />
+
+        <label for="projectImages">
+          Select project images:
         </label>
+        <br />
+        <input type="file" id="projectImages" name="projectImages" multiple required />
+        <br />
 
+        <fieldset>
+        {/* 
+        "postedBy": "",                                   // Required, not shown, attach the user's id
+      */}
+          <legend>This will eventually be handled outside of the form:</legend>
+          <label for="projectPostedBy">
+            Posted By:
+          </label>
+          <br />
+          <input id="projectPostedBy" name="projectPostedBy" required />
+          <br />
+        </fieldset>
 
-        <input id="submitButton" type="submit" />
+        <fieldset>
+        {/* 
+        "upvotedBy": [],                                  // Shouldn't be set by the front end
+        "approved": false,                                // Shouldn't be set by the front end
+        "upvotes": 0,                                     // Shouldn't be set by the front end 
+      */}
+          <legend>This stuff should be handled server-side:</legend>
+          <label for="projectUpvotedBy">
+            Upvoted By (Comma Separated):
+          </label>
+          <br />
+          <input id="projectUpvotedBy" name="projectUpvotedBy" required />
+          <br />
+
+          <fieldset>
+            <legend>Is the project approved?</legend>
+            <input type="radio" id="isApprovedYes" name="projectApprovedStatus"
+              value="true" onChange={handleApprovedChange} checked={isApproved === true} required />
+            <label for="isApprovedYes">Yes</label>
+            <input type="radio" id="isApprovedNo" name="projectApprovedStatus"
+              value="false" onChange={handleApprovedChange} checked={isApproved === false} required />
+            <label for="isApprovedNo">No</label>
+          </fieldset>
+
+          <label for="projectUpvotes">
+            Upvotes:
+          </label>
+          <br />
+          <input type="number" id="projectUpvotes" name="projectUpvotes" required />
+          <br />
+
+        </fieldset>
+        <Button id="submitButton" variant="contained" type="submit" color="primary" endIcon={<CloudUploadIcon />}>
+          Submit Project
+        </Button>
       </form>
-    </div>
+      </MuiPickersUtilsProvider>
+    </Paper>
   );
 }
 
