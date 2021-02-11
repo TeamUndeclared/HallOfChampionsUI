@@ -2,12 +2,8 @@ import React, { useState, useEffect } from 'react';
 //const images = 'https://via.placeholder.com/300';
 
 import { connect } from 'react-redux';
-import { getProjects } from '../../../Store/form'
+
 import { DataGrid } from '@material-ui/data-grid';
-
-
-
-const mapDispatchToProps = { getProjects }
 
 const ImageSlider = (props) => {
   const LIMIT = 4;
@@ -79,9 +75,4 @@ const ImageSlider = (props) => {
   )
 }
 
-const mapStateToProps = state => (console.log(state), {
-  images: state.form.results,
-})
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(ImageSlider);
+export default ImageSlider;

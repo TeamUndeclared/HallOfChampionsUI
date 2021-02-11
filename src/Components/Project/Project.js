@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {connect} from 'react-redux';
 import ImageSlider from './imageSlider/imageSlider'
-import { getProjects } from '../../Store/form'
 
-const mapDispatchToProps = { getProjects }
+
 
 function SingleView(props) {
   console.log({props})
@@ -37,8 +36,6 @@ function SingleView(props) {
   )
 }
 
-const mapStateToProps = state => (console.log(state.form.results), {
-  _id: state.results,
-})
 
-export default connect(mapStateToProps,mapDispatchToProps)(SingleView);
+
+export default (SingleView);

@@ -1,21 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+
+import axios from 'axios';
+
 import { makeStyles, Paper, Card, CardMedia, CardContent, Button, Grid } from '@material-ui/core';
 
 
 import "../../Assets/scss/main.scss";
 import './Case.scss';
 
-// Import Redux Store
-import { getProjects } from "../../Store/form";
-const mapDispatchToProps = { getProjects };
 
 function Main(props) {
+  const [response,setResponse] = useState({})
+  
+  const getProjects =  async() => {
+    
+    //requestOptions.body = await payload;
+    return axios.get('https://hall-of-fame-uf-dev.herokuapp.com/api/v2/projects/')
+      .then(response => {
+          console.log(`Response is: `, response);
+          setResponse(response.data)
+    })
+  }
 
   useEffect(() => {
+    console.log('response', response)
+  }, [response]);
+  useEffect(() => {
     console.log(`use effect is being hit`);
-    props.getProjects();
+    getProjects();
+    console.log('response', response)
   }, []);
 
   const useStyles = makeStyles((theme) => ({
@@ -87,8 +101,6 @@ function Main(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  projects: state.form.results,
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
+export default Main ;
