@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import "../../Assets/scss/main.scss"
+import LoginButton from '../Auth/Login-Btn/Login';
 
 import './Ceiling.scss';
 import HomeBtn from './home-btn/home-btn';
@@ -16,6 +17,7 @@ function Ceiling() {
     <Switch>
       <Route exact path="/">
         <div>Hello</div>
+        <LoginButton />
       </Route>
       <Route path="/case">
         <HomeBtn />   
