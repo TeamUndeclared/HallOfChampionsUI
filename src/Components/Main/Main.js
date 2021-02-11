@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 
-import { makeStyles, Paper, Card, CardMedia, CardContent } from '@material-ui/core';
+import { Button, makeStyles, Paper, Card, CardMedia, CardContent } from '@material-ui/core';
 import Case from '../Case/Case';
 
 import "../../Assets/scss/main.scss";
@@ -21,7 +22,6 @@ function Main(props) {
   return (
     <>
       <Case />
-      
     </>
   );
 }
