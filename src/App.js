@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter} from 'react-router-dom';
-import './App.css';
 import Ceiling from './Components/Ceiling/Ceiling';
 import Hallway from './Components/Hallway/Hallway';
 import Floor from './Components/Floor/Floor';
+import './reset.css';
+import './App.css';
 
 // Import Redux Store
 import { submitForm, resetForm } from "./Store/form";
