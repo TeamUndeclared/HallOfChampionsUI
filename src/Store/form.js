@@ -96,14 +96,7 @@ export const resetForm = () => {
   };
 };
 
-export const getProjects = (payload) =>async dispatch => {
-  //requestOptions.body = await payload;
-  return axios.get('https://hall-of-fame-uf-dev.herokuapp.com/api/v1/projects/')
-    .then(response => {
-        console.log(`Response is: `, response);
-        dispatch(getData(response.data, response.status));
-  })
-}
+
 
 export const getData = (response, status) => {
   return {
@@ -114,15 +107,5 @@ export const getData = (response, status) => {
     },
   }
 }
-
-// export const deleteData = (_id) => async dispatch => {
-//   console.log(_id)
-//   return axios.delete(`https://hall-of-fame-uf-dev.herokuapp.com/api/v1/projects/${_id}`)
-//     .then(response => {
-//       console.log(`delete response is:`, response)
-//       dispatch(deleteData(response.data))
-//     })
-// }
-
 
 export default formStore;

@@ -1,10 +1,48 @@
 #caseView {
+
+  // display: grid;
+  // grid-template-columns: auto auto auto auto auto auto auto auto; 
+  // grid-template-rows: auto;
+
   &.Case {
     margin: 5vh auto;
-    height: 60vh;
-    width: 90vw;
-    max-width: 960px;
-    overflow-y: scroll;
+    // height: 60vh;
+    width: 75vw;
+    max-height: 60vh;
+    // max-width: 960px;
+    overflow-x: scroll;
+    overflow-y: hidden;
     text-align: left;
+    padding: 1em;
   }
+  
+  .GridView{
+    // height: 60vh;
+    max-height: 60vh;
+
+  }
+
+  .GridPaper{
+    border-radius: 15px;
+  }
+
+  .individualGridView{
+    max-width: 20vw;
+  }
+}
+
+.IndividualProject {
+
+  border: 1px solid black;
+  background-color: #5e5e5e;
+  
+  border-radius: 15px;
+  width: 18vw;
+  max-width: 18vw;
+  height: 25vh;
+  
+  // margin: 1vh auto;
+  // grid-template-columns: auto; 
+  // grid-template-rows: auto;
+
 }

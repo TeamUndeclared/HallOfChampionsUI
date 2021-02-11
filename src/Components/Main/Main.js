@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
-import { Button, makeStyles, Paper, Card, CardMedia, CardContent } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Case from '../Case/Case';
 
 import "../../Assets/scss/main.scss";
 import './Main.scss';
 
-// Import Redux Store
-import { getProjects } from "../../Store/form";
-const mapDispatchToProps = { getProjects };
 
 
 function Main(props, { match, location }) {
@@ -33,8 +29,4 @@ function Main(props, { match, location }) {
   );
 }
 
-const mapStateToProps = state => ({
-  projects: state.form.results,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

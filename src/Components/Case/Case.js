@@ -1,20 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import { makeStyles, Paper, Card, CardMedia, CardContent, Button} from '@material-ui/core';
+
+import axios from 'axios';
+
+import { makeStyles, Paper, Card, CardMedia, CardContent, Button, Grid } from '@material-ui/core';
+
 
 import "../../Assets/scss/main.scss";
 import './Case.scss';
 
-// Import Redux Store
-import { getProjects } from "../../Store/form";
-const mapDispatchToProps = { getProjects };
 
 function Main(props) {
+  const [response,setResponse] = useState({})
+  
+  const getProjects =  async() => {
+    
+    //requestOptions.body = await payload;
+    return axios.get('https://hall-of-fame-uf-dev.herokuapp.com/api/v2/projects/')
+      .then(response => {
+          console.log(`Response is: `, response);
+          setResponse(response.data)
+    })
+  }
 
   useEffect(() => {
+    console.log('response', response)
+  }, [response]);
+  useEffect(() => {
     console.log(`use effect is being hit`);
-    props.getProjects();
+    getProjects();
+    console.log('response', response)
   }, []);
 
   const useStyles = makeStyles((theme) => ({
@@ -25,40 +40,67 @@ function Main(props) {
       listStyle: 'none',
       padding: theme.spacing(0.5),
       margin: 0,
-      maxWidth: '90vw'
+      maxWidth: '90vw',
+      flexGrow: 1
+    },
+    paper: {
+      padding: theme.spacing(1),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
     },
     media: {
       height: 140,
     },
   }));
+
   const classes = useStyles();
 
   return (
     <Paper className="Case" id="caseView">
+      <Grid 
+        className="GridView" id="caseGrid"
+        container 
+        spacing={2} 
+        direction="column"
+        justify='space-evenly'
+        alignItems="flex-start">
       {Object.keys(props.projects).map((project, i) => (
-        <Card key={i}>
-          <CardMedia 
-          className={classes.media}
-          image={props.projects[project].image[0]}
-          title="An image of the project"
-          />
-          <CardContent>
-          <h1>{props.projects[project].projectName}</h1>
-          </CardContent>
-
-          <Link to={`/project/${props.projects[project]._id}`}>
-            <Button href={`/project/${props.projects[project]._id}`}>View Project</Button>
-          </Link>
-
-        </Card>
+        <Grid 
+          className="individualGridView"
+          item 
+          container 
+          xs 
+          direction="column"
+          justify="space-evenly"
+          alignContent="center"
+          alignItems="flex-start">
+            <Paper 
+              elevation={4} 
+              className="GridPaper">
+                <Card 
+                  key={i} 
+                  className="IndividualProject">
+                    <CardMedia 
+                      className={classes.media}
+                      image={props.projects[project].image[0]}
+                      title="An image of the project"
+                    />
+                    <CardContent>
+                      <p>{props.projects[project].projectName}</p>
+                      <Link to={`/project/${props.projects[project]._id}`}>
+                        <Button href={`/project/${props.projects[project]._id}`}>View Project</Button>
+                      </Link>
+                    </CardContent>
+                </Card>
+            </Paper>
+        
+        </Grid>
       ))}
-      
+      </Grid>      
     </Paper>
   );
 }
 
-const mapStateToProps = state => ({
-  projects: state.form.results,
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
+export default Main ;
