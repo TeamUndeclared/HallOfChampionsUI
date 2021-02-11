@@ -1,55 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import {Link, useLocation} from 'react-router-dom';
-
 import axios from 'axios';
-
 import { makeStyles, Paper, Card, CardMedia, CardContent, Button, Grid } from '@material-ui/core';
-
 
 import "../../Assets/scss/main.scss";
 import './Case.scss';
 
-
-
-
-
-
 function Main(props) {
+  const [response,setResponse] = useState({})
+  const [userQuery, setUserQuery] = useState(useQuery())
   
   let qpType, qpQuery = '';
   
   function useQuery() {
     let location = useLocation();
-    console.log(location);
     const urlparams = new URLSearchParams(location.search);
-    console.log(urlparams.toString())
-    let qpType = urlparams.get('type');
-    let qpQuery = urlparams.get('query');
-    console.log(qpType, qpQuery)
+    qpType = urlparams.get('type');
+    qpQuery = urlparams.get('query');
     return urlparams
   }
 
-  const [response,setResponse] = useState({})
-  const [userQuery, setUserQuery] = useState(useQuery())
-  
   const getProjects =  async(qpType, qpQuery) => {
-
     console.log(qpType, qpQuery)
     //requestOptions.body = await payload;
-    return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v2/projects/?=type=${qpType}&query=${qpQuery}`)
+    return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v2/search/${qpType}?search=${qpQuery}`)
       .then(response => {
-          console.log(`Response is: `, response);
           setResponse(response.data)
     })
   }
-
+  
   useEffect(() => {
-    console.log('response', response)
-  }, [response]);
-  useEffect(() => {
-    console.log(`use effect is being hit`, userQuery);
     getProjects(qpType, qpQuery);
-    console.log('response', response)
   }, [userQuery]);
 
   const useStyles = makeStyles((theme) => ({
