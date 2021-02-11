@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter} from 'react-router-dom';
+import { HashRouter} from 'react-router-dom';
 import Ceiling from './Components/Ceiling/Ceiling';
 import Hallway from './Components/Hallway/Hallway';
 import Floor from './Components/Floor/Floor';
@@ -13,13 +13,13 @@ const mapDispatchToProps = { submitForm, resetForm };
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
         <Ceiling />
         <Hallway />
         <Floor />
       </div>
-    </BrowserRouter>
+    </HashRouter>
     
   );
 }
