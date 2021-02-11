@@ -22,12 +22,6 @@ function Main(props) {
   return (
     <>
       <Case />
-      <Case />
-      <Case />
-      <Case />
-      <Link to='/case/:type'>
-        <Button href='/case/:type'>View Case</Button>
-      </Link>
     </>
   );
 }
