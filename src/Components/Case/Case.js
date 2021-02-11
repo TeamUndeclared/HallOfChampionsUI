@@ -57,24 +57,6 @@ function Main(props) {
 
   return (
     <Paper className="Case" id="caseView">
-
-      {Object.keys(response).map((project, i) => (
-        <Card key={i}>
-          <CardMedia 
-          className={classes.media}
-          image={response[project].image[0]}
-          title="An image of the project"
-          />
-          <CardContent>
-          <h1>{response[project].projectName}</h1>
-          </CardContent>
-
-          <Link to={`/project/${response[project]._id}`}>
-            <Button href={`/project/${response[project]._id}`}>View Project</Button>
-          </Link>
-
-        </Card>
-
       <Grid 
         className="GridView" id="caseGrid"
         container 
