@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -10,13 +10,33 @@ import "../../Assets/scss/main.scss";
 import './Case.scss';
 
 
+
+
+
+
 function Main(props) {
-  const [response,setResponse] = useState({})
   
-  const getProjects =  async() => {
-    
+  let qpType, qpQuery = '';
+  
+  function useQuery() {
+    let location = useLocation();
+    console.log(location);
+    const urlparams = new URLSearchParams(location.search);
+    console.log(urlparams.toString())
+    qpType = urlparams.get('type');
+    qpQuery = urlparams.get('query');
+    console.log(qpType, qpQuery)
+    return urlparams
+  }
+
+  const [response,setResponse] = useState({})
+  const [userQuery, setUserQuery] = useState(useQuery())
+  
+  const getProjects =  async(qpType, qpQuery) => {
+
+    console.log(qpType, qpQuery)
     //requestOptions.body = await payload;
-    return axios.get('https://hall-of-fame-uf-dev.herokuapp.com/api/v2/projects/')
+    return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v2/search/${qpType}?search=${qpQuery}`)
       .then(response => {
           console.log(`Response is: `, response);
           setResponse(response.data)
@@ -27,10 +47,10 @@ function Main(props) {
     console.log('response', response)
   }, [response]);
   useEffect(() => {
-    console.log(`use effect is being hit`);
-    getProjects();
+    console.log(`use effect is being hit`, userQuery);
+    getProjects(qpType, qpQuery);
     console.log('response', response)
-  }, []);
+  }, [userQuery]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
