@@ -1,5 +1,5 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 
 import { Button } from '@material-ui/core';
@@ -11,20 +11,20 @@ import './Main.scss';
 
 
 function Main(props, { match, location }) {
-  
+  let qpType = 'courseLevel'
+  let qpQuery = 'SD400'
+
   console.log(match, location)
-  useEffect(() => {
-    console.log(`Getting all projects`);
-    props.getProjects();
-  }, []);
 
   return (
     <>
-      <Case />
       
-      <Link to='/case?q=react'>
-        <Button href='/case?q=react'>View Case</Button>
+      
+      <Link to={`/case?type=${qpType}&query=${qpQuery}`}>
+        <Button href={`/case?type=${qpType}&query=${qpQuery}`}>View Case</Button>
       </Link>
+
+      
       </>
   );
 }
