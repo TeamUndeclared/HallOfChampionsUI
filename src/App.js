@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
+import './reset.css';
 import './App.css';
 import Ceiling from './Components/Ceiling/Ceiling';
 import Hallway from './Components/Hallway/Hallway';

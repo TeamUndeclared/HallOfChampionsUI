@@ -21,9 +21,7 @@ function Main(props) {
   return (
     <>
       <Case />
-      <Case />
-      <Case />
-      <Case />
+      
     </>
   );
 }
