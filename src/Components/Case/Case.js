@@ -64,7 +64,7 @@ function Main(props) {
         direction="column"
         justify='space-evenly'
         alignItems="flex-start">
-      {Object.keys(props.projects).map((project, i) => (
+      {Object.keys(response).map((project, i) => (
         <Grid 
           className="individualGridView"
           item 
@@ -82,13 +82,13 @@ function Main(props) {
                   className="IndividualProject">
                     <CardMedia 
                       className={classes.media}
-                      image={props.projects[project].image[0]}
+                      image={response[project].image[0]}
                       title="An image of the project"
                     />
                     <CardContent>
-                      <p>{props.projects[project].projectName}</p>
-                      <Link to={`/project/${props.projects[project]._id}`}>
-                        <Button href={`/project/${props.projects[project]._id}`}>View Project</Button>
+                      <p>{response[project].projectName}</p>
+                      <Link to={`/project/${response[project]._id}`}>
+                        <Button href={`/project/${response[project]._id}`}>View Project</Button>
                       </Link>
                     </CardContent>
                 </Card>
