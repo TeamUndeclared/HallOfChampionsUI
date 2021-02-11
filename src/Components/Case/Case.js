@@ -1,22 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
+import axios from 'axios';
 import { makeStyles, Paper, Card, CardMedia, CardContent, Button, Grid } from '@material-ui/core';
-
 
 import "../../Assets/scss/main.scss";
 import './Case.scss';
 
-// Import Redux Store
-import { getProjects } from "../../Store/form";
-const mapDispatchToProps = { getProjects };
-
 function Main(props) {
+  const [response,setResponse] = useState({})
+  const [userQuery, setUserQuery] = useState(useQuery())
+  
+  let qpType, qpQuery = '';
+  
+  function useQuery() {
+    let location = useLocation();
+    const urlparams = new URLSearchParams(location.search);
+    qpType = urlparams.get('type');
+    qpQuery = urlparams.get('query');
+    return urlparams
+  }
 
+  const getProjects =  async(qpType, qpQuery) => {
+    console.log(qpType, qpQuery)
+    //requestOptions.body = await payload;
+    return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v2/search/${qpType}?search=${qpQuery}`)
+      .then(response => {
+          setResponse(response.data)
+    })
+  }
+  
   useEffect(() => {
-    console.log(`use effect is being hit`);
-    props.getProjects();
-  }, []);
+    getProjects(qpType, qpQuery);
+  }, [userQuery]);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +65,7 @@ function Main(props) {
         direction="column"
         justify='space-evenly'
         alignItems="flex-start">
-      {Object.keys(props.projects).map((project, i) => (
+      {Object.keys(response).map((project, i) => (
         <Grid 
           className="individualGridView"
           item 
@@ -68,13 +83,13 @@ function Main(props) {
                   className="IndividualProject">
                     <CardMedia 
                       className={classes.media}
-                      image={props.projects[project].image[0]}
+                      image={response[project].image[0]}
                       title="An image of the project"
                     />
                     <CardContent>
-                      <p>{props.projects[project].projectName}</p>
-                      <Link to={`/project/${props.projects[project]._id}`}>
-                        <Button href={`/project/${props.projects[project]._id}`}>View Project</Button>
+                      <p>{response[project].projectName}</p>
+                      <Link to={`/project/${response[project]._id}`}>
+                        <Button href={`/project/${response[project]._id}`}>View Project</Button>
                       </Link>
                     </CardContent>
                 </Card>
@@ -87,8 +102,6 @@ function Main(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  projects: state.form.results,
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
+export default Main ;

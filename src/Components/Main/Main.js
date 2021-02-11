@@ -1,33 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import {Link, useLocation} from 'react-router-dom';
+import axios from 'axios';
 
-import { Button, makeStyles, Paper, Card, CardMedia, CardContent } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Case from '../Case/Case';
 
 import "../../Assets/scss/main.scss";
 import './Main.scss';
 
-// Import Redux Store
-import { getProjects } from "../../Store/form";
-const mapDispatchToProps = { getProjects };
 
-function Main(props) {
 
-  useEffect(() => {
-    console.log(`Getting all projects`);
-    props.getProjects();
-  }, []);
+function Main(props, { match, location }) {
+  let qpType = 'courseLevel'
+  let qpQuery = 'SD400'
+
+  console.log(match, location)
 
   return (
     <>
-      <Case />
-    </>
+      
+      
+      <Link to={`/case?type=${qpType}&query=${qpQuery}`}>
+        <Button href={`/case?type=${qpType}&query=${qpQuery}`}>View Case</Button>
+      </Link>
+
+      
+      </>
   );
 }
 
-const mapStateToProps = state => ({
-  projects: state.form.results,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;
