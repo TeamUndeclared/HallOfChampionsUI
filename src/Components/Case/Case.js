@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import { makeStyles, Paper, Card, CardMedia, CardContent, Button} from '@material-ui/core';
+import axios from 'axios';
+
 
 import "../../Assets/scss/main.scss";
 import './Case.scss';
 
-// Import Redux Store
-import { getProjects } from "../../Store/form";
-const mapDispatchToProps = { getProjects };
 
 function Main(props) {
+  const [response,setResponse] = useState({})
+  
+  const getProjects =  async() => {
+    
+    //requestOptions.body = await payload;
+    return axios.get('https://hall-of-fame-uf-dev.herokuapp.com/api/v2/projects/')
+      .then(response => {
+          console.log(`Response is: `, response);
+          setResponse(response.data)
+    })
+  }
 
   useEffect(() => {
+    console.log('response', response)
+  }, [response]);
+  useEffect(() => {
     console.log(`use effect is being hit`);
-    props.getProjects();
+    getProjects();
+    console.log('response', response)
   }, []);
 
   const useStyles = makeStyles((theme) => ({
@@ -35,19 +48,19 @@ function Main(props) {
 
   return (
     <Paper className="Case" id="caseView">
-      {Object.keys(props.projects).map((project, i) => (
+      {Object.keys(response).map((project, i) => (
         <Card key={i}>
           <CardMedia 
           className={classes.media}
-          image={props.projects[project].image[0]}
+          image={response[project].image[0]}
           title="An image of the project"
           />
           <CardContent>
-          <h1>{props.projects[project].projectName}</h1>
+          <h1>{response[project].projectName}</h1>
           </CardContent>
 
-          <Link to={`/project/${props.projects[project]._id}`}>
-            <Button href={`/project/${props.projects[project]._id}`}>View Project</Button>
+          <Link to={`/project/${response[project]._id}`}>
+            <Button href={`/project/${response[project]._id}`}>View Project</Button>
           </Link>
 
         </Card>
@@ -57,8 +70,6 @@ function Main(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  projects: state.form.results,
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
+export default Main ;

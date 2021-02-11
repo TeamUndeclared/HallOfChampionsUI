@@ -11,8 +11,9 @@ ReactDOM.render(
     <Auth0Provider
     domain="dev-4zbaxg9b.us.auth0.com"
     clientId="szqzPq37DJGEMQk3eiqMEwp0t6JKcZQj"
-    redirectUri={window.location.origin}audience="https://dev-4zbaxg9b.us.auth0.com/api/v2/"
-    scope="read:current_user update:current_user_metadata"
+    redirectUri={window.location.origin}
+    audience="https://hall-of-fame-uf-dev.herokuapp.com/"
+    scope=""
     >
       <Provider store={store}>
         <App />

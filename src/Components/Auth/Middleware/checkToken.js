@@ -8,18 +8,14 @@ const {getAccessTokenSilently } = useAuth0();
 
 // do this at begining of making a api call within the function to get token the attach to header with line below
 async function getToken(){
-    const domain = "dev-4zbaxg9b.us.auth0.com";
 
-    try {
       const accessToken = await getAccessTokenSilently({
-        audience: `https://${domain}/api/v2/`,
+        audience: `https://hall-of-fame-uf-dev.herokuapp.com/`,
         scope:''
       });
       return accessToken
-    } catch (e) {
-      console.log(e.message);
     }
-  };
+
 export default getToken();
 
 // in header add 'Authorization': `Bearer ${accessToken}`
