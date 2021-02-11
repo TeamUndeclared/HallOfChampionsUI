@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 import { Button, makeStyles, Paper, Card, CardMedia, CardContent } from '@material-ui/core';
 import Case from '../Case/Case';
@@ -12,8 +13,10 @@ import './Main.scss';
 import { getProjects } from "../../Store/form";
 const mapDispatchToProps = { getProjects };
 
-function Main(props) {
 
+function Main(props, { match, location }) {
+  
+  console.log(match, location)
   useEffect(() => {
     console.log(`Getting all projects`);
     props.getProjects();
@@ -22,13 +25,11 @@ function Main(props) {
   return (
     <>
       <Case />
-      <Case />
-      <Case />
-      <Case />
-      <Link to='/case/:type'>
-        <Button href='/case/:type'>View Case</Button>
+      
+      <Link to='/case?q=react'>
+        <Button href='/case?q=react'>View Case</Button>
       </Link>
-    </>
+      </>
   );
 }
 
