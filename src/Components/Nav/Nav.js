@@ -102,6 +102,18 @@ function Nav(props) {
             </ListItemText>
           </ListItem>
         </Link>
+        <Link to='/profile'>
+          <ListItem href="/profile">
+            <ListItemAvatar>
+              <Avatar alt='Profile'>
+                <InfoIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText>
+              <Typography variant="h2" className="headerTitle">profile</Typography>
+            </ListItemText>
+          </ListItem>
+        </Link>
 
       </List>
     </div>
