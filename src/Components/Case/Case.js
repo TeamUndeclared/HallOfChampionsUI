@@ -23,8 +23,8 @@ function Main(props) {
     console.log(location);
     const urlparams = new URLSearchParams(location.search);
     console.log(urlparams.toString())
-    qpType = urlparams.get('type');
-    qpQuery = urlparams.get('query');
+    let qpType = urlparams.get('type');
+    let qpQuery = urlparams.get('query');
     console.log(qpType, qpQuery)
     return urlparams
   }

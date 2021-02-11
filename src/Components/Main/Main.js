@@ -10,11 +10,9 @@ import './Main.scss';
 
 
 
-function Main(props, { match, location }) {
+function Main(props) {
   let qpType = 'courseLevel'
   let qpQuery = 'SD400'
-
-  console.log(match, location)
 
   return (
     <>
