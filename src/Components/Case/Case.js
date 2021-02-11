@@ -36,7 +36,7 @@ function Main(props) {
 
     console.log(qpType, qpQuery)
     //requestOptions.body = await payload;
-    return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v2/projects/?=type=${qpType}&query=${qpQuery}`)
+    return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v2/search/${qpType}?search=${qpQuery}`)
       .then(response => {
           console.log(`Response is: `, response);
           setResponse(response.data)
