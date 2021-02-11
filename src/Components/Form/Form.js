@@ -18,9 +18,9 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-
 import "../../Assets/scss/main.scss";
 import './Form.scss';
+import ImageUpload from '../ImageUpload';
 
 
 function Form(props) {
@@ -216,7 +216,9 @@ function Form(props) {
             Select project images:
           </label>
           <br />
-          <input type="file" id="projectImages" name="projectImages" multiple required />
+
+          <ImageUpload />
+          
           <br />
   
           <fieldset>
