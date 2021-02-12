@@ -13,24 +13,9 @@ import './About.scss';
 
 
 const useStyles = makeStyles({
-  cardRoot: {
-    maxWidth: 300,
-    width: 200,
-  },
-  gridRoot: {
-    flexGrow: 1,
-    paddingLeft: 300,
-    paddingRight: 300,
-    width: '100%',
-    justifyItems: 'stretch',
-    
-  },
-  root: {
-    heigth: 10,
-    
-  },
   media: {
-    height: 150,
+    height: 100,
+    maxHeight: 150,
   },
 });
 
@@ -38,7 +23,7 @@ function About(props) {
   const classes = useStyles();
 
   return (
-    <Paper id="appAbout" className={classes.gridRoot}>
+    <Paper id="appAbout" className="About">
       <Grid
         container
         direction="row"
@@ -47,7 +32,7 @@ function About(props) {
         spacing={2}
       >
         <Grid item xs={12}>
-          <Typography paragraph={true} align='center' component="h2" className="aboutTitle">
+          <Typography align='center' variant="h3">
             About Us
           </Typography>
         </Grid>
@@ -64,14 +49,13 @@ function About(props) {
                   Matt Ravenmoore
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-          
-                Greetings, my name is Matt Ravenmoore. I am a software designer with a background in theater, art, metal fabrication and design. That is to say i am an innovative and creative thinker and will find unique way of approaching a problem. I strive to learn 3- 5 new things every day, with an emphasis on skills both physical and mental
-               
+                  Greetings, my name is Matt Ravenmoore. I am a software designer with a background in theater, art, metal fabrication and design. That is to say i am an innovative and creative thinker and will find unique way of approaching a problem. I strive to learn 3- 5 new things every day, with an emphasis on skills both physical and mental.
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button href='https://www.linkedin.com/in/matt-ravenmoore/'  size="medium" >
+              <Button href='https://www.linkedin.com/in/matt-ravenmoore/'
+                color="primary" variant="contained" size="medium" >
                 Linked In
               </Button>
             </CardActions>
@@ -91,14 +75,14 @@ function About(props) {
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
 
-                  Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                  across all continents except Antarctica
+                  This is my about text
 
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button href='https://www.linkedin.com/in/jeremy-penning/'  size="medium" >
+              <Button href='https://www.linkedin.com/in/jeremy-penning/'
+                color="primary" variant="contained" size="medium" >
                 Linked In
               </Button>
             </CardActions>
@@ -124,7 +108,8 @@ function About(props) {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button href='https://www.linkedin.com/in/ricardo-barcenas/'  size="medium" >
+              <Button href='https://www.linkedin.com/in/ricardo-barcenas/'
+              color="primary" variant="contained" size="medium" >
                 Linked In
               </Button>
             </CardActions>
@@ -150,7 +135,8 @@ function About(props) {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button href='https://www.linkedin.com/in/garrett-cintron/'  size="medium" >
+              <Button href='https://www.linkedin.com/in/garrett-cintron/'
+                color="primary" variant="contained" size="medium" >
                 Linked In
               </Button>
             </CardActions>
