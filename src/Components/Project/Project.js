@@ -5,17 +5,16 @@ import { makeStyles, Paper, Card, CardMedia, CardContent, Button, Grid, Typograp
 
 import "../../Assets/scss/main.scss";
 import './Project.scss';
-import { RestoreOutlined } from '@material-ui/icons';
 
 function Project(props) {
   const [response, setResponse] = useState({});
   const [projectId, setProjectId] = useState(getProjectIdFromPath());
   
   function getProjectIdFromPath() {
-    return window.location.pathname.split('/').pop();
+    return window.location.hash.split('/').pop();
   }
 
-  const getProjects = (thisProject) => {
+  const getProject = (thisProject) => {
     console.log('About to try to get a projectId of: ', thisProject);
     return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v2/projects/${thisProject}`)
       .then(response => {
@@ -25,7 +24,7 @@ function Project(props) {
   }
 
   useEffect(() => {
-    getProjects(projectId);
+    getProject(projectId);
   }, [projectId]);
 
   useEffect(() => {
