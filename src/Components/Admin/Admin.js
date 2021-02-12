@@ -38,7 +38,7 @@ function Admin() {
         'Authorization': `Bearer ${accessToken}`
       },
     }).then(response => {
-      console.log(response)
+      // console.log(response)
       setRows(response.data)
     })
   }
@@ -54,7 +54,7 @@ function Admin() {
       },
       data:row
     }).then(response => {
-      console.log(response)
+      // console.log(response)
       getAdminProject()
     })
   }
@@ -69,7 +69,7 @@ function Admin() {
       },
       data:row
     }).then(response => {
-      console.log(response)
+      // console.log(response)
       getAdminProject()
     })
   }
@@ -83,7 +83,7 @@ function Admin() {
         'Authorization': `Bearer ${accessToken}`
       },
     }).then(response => {
-      console.log(response)
+      // console.log(response)
       getAdminProject()
     })
   }
@@ -113,7 +113,7 @@ function Admin() {
     isAuthenticated && (
     <Paper id='adminView' className="AdminTable">
       <div id='admin-header'>
-        <h1> IM AN ADMIN CPANEL</h1>
+        <h1>Admin Control Panel</h1>
       </div>
       <div id='project-list'>
         <TableContainer component={Paper}>
@@ -121,15 +121,14 @@ function Admin() {
             <TableHead>
               <TableRow>
                 <TableCell>Project Name</TableCell>
-                <TableCell align="right">course level</TableCell>
+                <TableCell align="right">Course Level</TableCell>
                 <TableCell align="right">Date Created</TableCell>
-                <TableCell align="right">posted by</TableCell>
+                <TableCell align="right">Posted By</TableCell>
                 <TableCell align="right">Live Status</TableCell>
                 <TableCell align="right">Change Status</TableCell>
-                <TableCell align="right">Github Repo</TableCell>
-                <TableCell align="right">is approved</TableCell>
-                <TableCell align="right">delete</TableCell>
-
+                <TableCell align="right">GitHub Repo</TableCell>
+                <TableCell align="right">Is Approved</TableCell>
+                <TableCell align="right">Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

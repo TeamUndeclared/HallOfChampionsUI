@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import {PseudoCase} from '../PseudoCase/PseudoCase';
+import { PseudoCase } from '../PseudoCase/PseudoCase';
 
 import './Main.scss';
 import "../../Assets/scss/main.scss";
@@ -14,14 +14,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     justify: 'space-evenly',
     alignContent: 'stretch',
-    
+
   },
   paper: {
     height: '30em',
     padding: theme.spacing(0),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    
+
   },
   arrows: {
     height: '10',
@@ -36,19 +36,14 @@ export default function NestedGrid() {
 
   function FormRow() {
     return (
-      <React.Fragment>
-
-        
-
-        <Grid 
+        <Grid
           container
           justify='center'
           alignItems='stretch'
           id='mainView'
           className='Main'
         >
-
-          <Grid 
+          <Grid
             item container
             justify='center'
             alignItems='center'
@@ -59,44 +54,35 @@ export default function NestedGrid() {
           </Grid>
 
           <Grid item xs={4}>
-          
             <PseudoCase
-            caseTitle='401 JavaScript'
-            caseType='courseLevel'
-            caseSearch='SD400' 
-            />              
-            
+              caseTitle='401 JavaScript'
+              caseType='courseLevel'
+              caseSearch='SD400'
+            />
           </Grid>
 
           <Grid item xs={2}>
           </Grid>
 
           <Grid item xs={4}>
-            
-            <PseudoCase 
+            <PseudoCase
               caseTitle='301 JavaScript'
               caseType='courseLevel'
-              caseSearch='SD300'            
+              caseSearch='SD300'
             />
-
           </Grid>
 
-          <Grid 
+          <Grid
             item container
             justify='center'
             alignItems='center'
-            alignSelf='center' 
+            alignSelf='center'
             xs={1}
           >
             <Paper className={classes.arrows}><ArrowRightIcon /></Paper>
           </Grid>
 
         </Grid>
-
-        
-        
-      </React.Fragment>
-      
     );
   }
 
@@ -104,11 +90,8 @@ export default function NestedGrid() {
     <div className={classes.root}>
       <Grid container spacing={1}>
         <Grid container item xs={12} spacing={0}>
-
           <FormRow />
-
         </Grid>
-        
       </Grid>
     </div>
   );

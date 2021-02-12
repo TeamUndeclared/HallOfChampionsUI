@@ -1,15 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import "../../Assets/scss/main.scss"
 import ProfileSm from '../Auth/profile/Profile-sm'
-import './Ceiling.scss';
 import HomeBtn from './home-btn/home-btn';
+import "../../Assets/scss/main.scss"
+import './Ceiling.scss';
 
 function Ceiling() {
-// Search bar for get case by class.
-
-
-  // Do stuff 
   return (
     <div id="ceiling" className="Ceiling">
     <Switch>
@@ -32,7 +28,6 @@ function Ceiling() {
         <HomeBtn />
       </Route>
     </Switch>
-
     </div>
   );
 }
