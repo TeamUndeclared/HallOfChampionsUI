@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
-
-import { Button } from '@material-ui/core';
+import background from '../../Assets/images/case2.png';
+import { Button, Container } from '@material-ui/core';
 import Case from '../Case/Case';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,8 +13,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    
+    backgroundImage: `url(${background})`,
+    backgroundSize: '100%'    
   },
+  psudeoCaseBG:{
+    backgroundColor: (54, 30, 6),
+  }
   
 }));
 
@@ -24,13 +27,15 @@ export function PseudoCase(props) {
 
   return (
     
-    
-    <Link to={`/case?type=${props.caseType}&query=${props.caseSearch}`}>
+    <div className="psuedoCaseBG">
+      <Link to={`/case?type=${props.caseType}&query=${props.caseSearch}`}>
       <Paper className={classes.paper}>
     
           <p>{props.caseTitle}</p>
       </Paper>
     </Link>
+    </div>
+    
 
   );
 }
