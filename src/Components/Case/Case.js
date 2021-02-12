@@ -22,7 +22,7 @@ function Case(props) {
   const getProjects =  async(qpType, qpQuery) => {
     console.log(qpType, qpQuery)
     //requestOptions.body = await payload;
-    return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v1/search/${qpType}?search=${qpQuery}`)
+    return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v2/search/${qpType}?search=${qpQuery}`)
       .then(response => {
           setResponse(response.data)
     })
