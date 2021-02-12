@@ -5,6 +5,8 @@ import axios from 'axios';
 import { Button } from '@material-ui/core';
 import Case from '../Case/Case';
 
+import PseudoCase from '../PseudoCase/PseudoCase';
+
 import "../../Assets/scss/main.scss";
 import './Main.scss';
 
@@ -19,6 +21,9 @@ function Main(props) {
       
       
       <Link to={`/case?type=${qpType}&query=${qpQuery}`}>
+        <PseudoCase 
+          myNameIs = 'bob'
+        />
         <Button href={`/case?type=${qpType}&query=${qpQuery}`}>View Case</Button>
       </Link>
 

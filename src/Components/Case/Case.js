@@ -6,18 +6,17 @@ import { makeStyles, Paper, Card, CardMedia, CardContent, Button, Grid } from '@
 import "../../Assets/scss/main.scss";
 import './Case.scss';
 
-function Main(props) {
-  const [response,setResponse] = useState({})
-  const [userQuery, setUserQuery] = useState(useQuery())
-  
+function Case(props) {
   let qpType, qpQuery = '';
+  const [response, setResponse] = useState({});
+  const [userQuery, setUserQuery] = useState(useQuery());
   
   function useQuery() {
     let location = useLocation();
     const urlparams = new URLSearchParams(location.search);
     qpType = urlparams.get('type');
     qpQuery = urlparams.get('query');
-    return urlparams
+    return urlparams;
   }
 
   const getProjects =  async(qpType, qpQuery) => {
@@ -28,7 +27,7 @@ function Main(props) {
           setResponse(response.data)
     })
   }
-  
+
   useEffect(() => {
     getProjects(qpType, qpQuery);
   }, [userQuery]);
@@ -102,6 +101,4 @@ function Main(props) {
   );
 }
 
-
-
-export default Main ;
+export default Case;
