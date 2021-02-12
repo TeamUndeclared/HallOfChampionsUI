@@ -7,10 +7,10 @@ import TagFacesIcon from '@material-ui/icons/TagFaces';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -20,11 +20,12 @@ import {
 
 import "../../Assets/scss/main.scss";
 import './Form.scss';
-import ImageUpload from '../ImageUpload/ImageUpload';
+import ImageUpload from '../ImageUpload';
 
 
 function Form(props) {
   const [isDeployed, setIsDeployed] = React.useState(false);
+  const [isApproved, setIsApproved] = React.useState(false);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleDeployedChange = (event) => {
@@ -32,16 +33,20 @@ function Form(props) {
     let radioState = event.target.value === 'true' ? true : false
     setIsDeployed(radioState);
   };
-
+  const handleApprovedChange = (event) => {
+    //console.log(event.target.value);
+    let radioState = event.target.value === 'true' ? true : false
+    setIsApproved(radioState);
+  };
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
-  const {user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  useEffect(() => {
+    console.log(`isApproved was changed to:`, isApproved);
+  }, [isApproved]);
 
-  // useEffect(() => {
-  //   console.log(`isUser was changed to:`, user.email);
-  // }, [user.email]);
+  const {isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -74,15 +79,18 @@ function Form(props) {
       "courseLevel": formInfo.projectClassLevel.value,
       "githubRepo": formInfo.projectGithubUrl.value,
       "isLiveStatus": isDeployed,
-      "isLiveUrl": deployedUrl,     // Not Required
-      "tags": tagArr,               // Not Required
-      "postedBy": user.email,       // Required, not shown, attach the user's id
+      "isLiveUrl": deployedUrl,                         // Not Required
+      "tags": tagArr,                                   // Not Required
+      "postedBy": formInfo.projectPostedBy.value,       // Required, not shown, attach the user's id
+      "upvotedBy": upvotedByArr,                        // Shouldn't be set by the front end
+      "approved": isApproved,                           // Shouldn't be set by the front end
+      "upvotes": 0,                                     // Shouldn't be set by the front end
     }
     async function getToken(){
       const accessToken = await getAccessTokenSilently({
          audience: `https://hall-of-fame-uf-dev.herokuapp.com/`,
          scope:''
-      });
+       });
       return accessToken
     }
     
@@ -102,8 +110,11 @@ function Form(props) {
     saveProject();
   }
   
+  
+
   return (
     isAuthenticated && (
+
       <Paper id="submitForm" className="Form" elevation={12}>
         <h2 className="formHeader">
           Project Submission
@@ -171,43 +182,93 @@ function Form(props) {
           </FormControl>
           <br />
   
-          <FormGroup className="formInput radioGroup">
+  
+          <FormGroup>
             <legend>Is the project currently deployed?</legend>
-            <label for="isLiveYes" className="radioBoolean">
-              <input type="radio" id="isLiveYes" name="IsLiveStatus" 
-                value="true" onChange={handleDeployedChange} checked={isDeployed === true} required />
-                Yes
-            </label>
-            <label for="isLiveYes" className="radioBoolean">
-              <input type="radio" id="isLiveNo" name="IsLiveStatus"
-                value="false" onChange={handleDeployedChange} checked={isDeployed === false} required />
-                No
-            </label>
+            <input type="radio" id="isLiveYes" name="IsLiveStatus"
+              value="true" onChange={handleDeployedChange} checked={isDeployed === true} required />
+            <label for="isLiveYes">Yes</label>
+            <input type="radio" id="isLiveNo" name="IsLiveStatus"
+              value="false" onChange={handleDeployedChange} checked={isDeployed === false} required />
+            <label for="isLiveYes">No</label>
+            <br />
             { isDeployed ?
-              <FormControl className="formInput">
-                <InputLabel htmlfor="projectDeploymentUrl">GitHub Repository URL:</InputLabel>
-                <Input type="url" id="projectDeploymentUrl" variant="outlined" fullWidth />
-              </FormControl>
+              <>
+                <label for="projectDeploymentUrl">
+                  Deployed URL:
+                </label>
+                <br />
+                <input type="url" id="projectDeploymentUrl" name="projectDeploymentUrl" />
+              </>
             : null }
           </FormGroup>
-
-
-          <FormControl className="formInput">
-            <InputLabel htmlfor="projectTags">Framework/Libraries/Tools Used (Comma Separated):</InputLabel>
-            <Input id="projectTags" variant="outlined" fullWidth />
-          </FormControl>
+          <br />
+  
+          <label for="projectTags">
+            Framework/Libraries/Tools Used (Comma Separated):
+          </label>
+          <br />
+          <input id="projectTags" name="projectTags" />
           <br />
           <br />
+  
+          <label for="projectImages">
+            Select project images:
+          </label>
+          <br />
+
           <ImageUpload />
-
+          
           <br />
-          <br />
-          <br />
-          <input id="projectPostedBy" name="projectPostedBy" value={user.email} hidden required />
+  
+          <fieldset>
+          {/* 
+          "postedBy": "",                                   // Required, not shown, attach the user's id
+          */}
+            <legend>This will eventually be handled outside of the form:</legend>
+            <label for="projectPostedBy">
+              Posted By:
+            </label>
+            <br />
+            <input id="projectPostedBy" name="projectPostedBy" required />
+            <br />
+          </fieldset>
+  
+          <fieldset>
+          {/* 
+          "upvotedBy": [],                                  // Shouldn't be set by the front end
+          "approved": false,                                // Shouldn't be set by the front end
+          "upvotes": 0,                                     // Shouldn't be set by the front end 
+          */}
+            <legend>This stuff should be handled server-side:</legend>
+            <label for="projectUpvotedBy">
+              Upvoted By (Comma Separated):
+            </label>
+            <br />
+            <input id="projectUpvotedBy" name="projectUpvotedBy" required />
+            <br />
+  
+            <fieldset>
+              <legend>Is the project approved?</legend>
+              <input type="radio" id="isApprovedYes" name="projectApprovedStatus"
+                value="true" onChange={handleApprovedChange} checked={isApproved === true} required />
+              <label for="isApprovedYes">Yes</label>
+              <input type="radio" id="isApprovedNo" name="projectApprovedStatus"
+                value="false" onChange={handleApprovedChange} checked={isApproved === false} required />
+              <label for="isApprovedNo">No</label>
+            </fieldset>
+  
+            <label for="projectUpvotes">
+              Upvotes:
+            </label>
+            <br />
+            <input type="number" id="projectUpvotes" name="projectUpvotes" required />
+            <br />
+  
+          </fieldset>
           <Button id="submitButton" variant="contained" type="submit" color="primary" endIcon={<CloudUploadIcon />}>
             Submit Project
           </Button>
-          <br /><br />
         </form>
         </MuiPickersUtilsProvider>
       </Paper>
