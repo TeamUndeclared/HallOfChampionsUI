@@ -54,8 +54,8 @@ function Form(props) {
     let tagArr = [];
     formInfo.projectTags.value.split(',').forEach(t => { tagArr.push(t.trim())});
     // Need handling for upvotedBy. Convert CSL to array.
-    let upvotedByArr = [];
-    formInfo.projectUpvotedBy.value.split(',').forEach(t => { upvotedByArr.push(t.trim())});
+    // let upvotedByArr = [];
+    // formInfo.projectUpvotedBy.value.split(',').forEach(t => { upvotedByArr.push(t.trim())});
 
     let deployedUrl = ""
     if (formInfo.projectDeploymentUrl === undefined) {
@@ -77,6 +77,9 @@ function Form(props) {
       "isLiveUrl": deployedUrl,     // Not Required
       "tags": tagArr,               // Not Required
       "postedBy": user.email,       // Required, not shown, attach the user's id
+      "upvotedBy": [],                        // Shouldn't be set by the front end
+      "approved": false,                           // Shouldn't be set by the front end
+      "upvotes": 0,                                     // Shouldn't be set by the front end
     }
     async function getToken(){
       const accessToken = await getAccessTokenSilently({
@@ -185,7 +188,7 @@ function Form(props) {
             </label>
             { isDeployed ?
               <FormControl className="formInput">
-                <InputLabel htmlfor="projectDeploymentUrl">GitHub Repository URL:</InputLabel>
+                <InputLabel htmlfor="projectDeploymentUrl">Deployed Project URL:</InputLabel>
                 <Input type="url" id="projectDeploymentUrl" variant="outlined" fullWidth />
               </FormControl>
             : null }
