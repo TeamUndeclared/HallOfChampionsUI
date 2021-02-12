@@ -1,7 +1,12 @@
 #appAbout {
-
-  overflow-x: scroll;
-  overflow-y: scroll;
-  
-  height: 100%;
+  &.About {
+    margin: 5vh auto;
+    padding: 10px;
+    height: 60vh;
+    width: 85vw;
+    max-width: 960px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    text-align: left;
+  }
 }

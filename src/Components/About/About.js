@@ -9,36 +9,22 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper'
+import garrett from "../../Assets/images/garrett.jpg"
+import ricardo from "../../Assets/images/ricardo.jpg"
+import jeremy from "../../Assets/images/jeremy.jpg"
+import matt from "../../Assets/images/matt.jpg"
 import './About.scss';
 
 
 const useStyles = makeStyles({
-  cardRoot: {
-    maxWidth: 300,
-    width: 200,
-  },
-  gridRoot: {
-    flexGrow: 1,
-    paddingLeft: 300,
-    paddingRight: 300,
-    width: '100%',
-    justifyItems: 'stretch',
-    
-  },
-  root: {
-    heigth: 10,
-    
-  },
   media: {
-    height: 150,
+    height: 300,
   },
 });
-
 function About(props) {
   const classes = useStyles();
-
   return (
-    <Paper id="appAbout" className={classes.gridRoot}>
+    <Paper id="appAbout" className="About">
       <Grid
         container
         direction="row"
@@ -47,7 +33,7 @@ function About(props) {
         spacing={2}
       >
         <Grid item xs={12}>
-          <Typography paragraph={true} align='center' component="h2" className="aboutTitle">
+          <Typography align='center' variant="h3">
             About Us
           </Typography>
         </Grid>
@@ -56,7 +42,7 @@ function About(props) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image=""
+                image={matt}
                 title="Matt Ravenmore"
               />
               <CardContent>
@@ -64,14 +50,13 @@ function About(props) {
                   Matt Ravenmoore
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-          
-                Greetings, my name is Matt Ravenmoore. I am a software designer with a background in theater, art, metal fabrication and design. That is to say i am an innovative and creative thinker and will find unique way of approaching a problem. I strive to learn 3- 5 new things every day, with an emphasis on skills both physical and mental
-               
+                  Greetings, my name is Matt Ravenmoore. I am a software designer with a background in theater, art, metal fabrication and design. That is to say i am an innovative and creative thinker and will find unique way of approaching a problem. I strive to learn 3- 5 new things every day, with an emphasis on skills both physical and mental.
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button href='https://www.linkedin.com/in/matt-ravenmoore/'  size="medium" >
+              <Button href='https://www.linkedin.com/in/matt-ravenmoore/'
+                color="primary" variant="contained" size="medium" >
                 Linked In
               </Button>
             </CardActions>
@@ -82,7 +67,7 @@ function About(props) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image=""
+                image={jeremy}
                 title="Jeremy Penning"
               />
               <CardContent>
@@ -90,16 +75,14 @@ function About(props) {
                   Jeremy Penning
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-
-                  Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                  across all continents except Antarctica
-
+                My name is Jeremy Penning currently living in Seattle, Washington. I've loved technology of all forms for as long as I can remember. I've been building, tearing apart and programming computers since 4th grade. I got into web design 4 years later and landed my first job at 15.<br /><br />Since then I've created websites and web applications for everybody from long-shot rural political candidates to international corporations. Most recently I created a web application for company that provides e-learning service to over 100,000 users in the US and around the world.
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button href='https://www.linkedin.com/in/jeremy-penning/'  size="medium" >
-                Linked In
+              <Button href='https://www.github.com/pixeljava/'
+                color="primary" variant="contained" size="medium" >
+                Github
               </Button>
             </CardActions>
           </Card>
@@ -109,7 +92,7 @@ function About(props) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image=""
+                image={ricardo}
                 title="Ricardo Barcenas"
               />
               <CardContent>
@@ -117,14 +100,13 @@ function About(props) {
                   Ricardo Barcenas
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                
-                  text goes here
-
+                The "I'm obnoxious" fish from Finding Nemo is my spirit animal. I am so clever that sometimes I don’t understand a single word of what I am saying.
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button href='https://www.linkedin.com/in/ricardo-barcenas/'  size="medium" >
+              <Button href='https://www.linkedin.com/in/ricardo-barcenas/'
+              color="primary" variant="contained" size="medium" >
                 Linked In
               </Button>
             </CardActions>
@@ -135,7 +117,7 @@ function About(props) {
             <CardActionArea>
               <CardMedia
                 className={classes.media}
-                image=""
+                image={garrett}
                 title="Garrett Cintron"
               />
               <CardContent>
@@ -143,14 +125,13 @@ function About(props) {
                   Garrett Cintron
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                
-                  text goes here
-
+                Hi, my name is Garrett Cintron and I am a software engineer. I have a background working in the healthcare industry as a nurse's assistant. I enjoy hiking, going to the gym, and cooking.
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button href='https://www.linkedin.com/in/garrett-cintron/'  size="medium" >
+              <Button href='https://www.linkedin.com/in/garrett-cintron/'
+                color="primary" variant="contained" size="medium" >
                 Linked In
               </Button>
             </CardActions>
@@ -160,5 +141,4 @@ function About(props) {
     </Paper>
   );
 }
-
 export default About;
