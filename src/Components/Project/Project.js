@@ -40,12 +40,21 @@ function Project(props) {
       padding: theme.spacing(0.5),
       margin: 0,
       maxWidth: '90vw',
-      flexGrow: 1
+      flexGrow: 1,
+      
     },
     paper: {
       padding: theme.spacing(1),
       textAlign: 'center',
       color: theme.palette.text.secondary,
+      backgroundColor: 'beige',
+    },
+    card: {
+      padding: theme.spacing(1),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+      backgroundColor: 'beige',
+      
     },
     media: {
       height: 140,
@@ -73,7 +82,7 @@ function Project(props) {
 
   return (
 
-    <Paper className="Project" id="projectView">
+    <Paper className={classes.paper} id="projectView">
       { (response._id) ?
       <>
         {/* The arrays are breaking because they're reading on page load, not after the response comes back */}
@@ -81,9 +90,17 @@ function Project(props) {
         {response.image.map((image, i) => (
           <img height="300" src={image} alt={`Image from the ${response.projectName} project`} />
         ))}
+        <div>
+        <h2>Authors</h2>
+        </div>
         {response.authors.map((author, i) => (
+          
+          <Card key={i} className={classes.card}>
           <p>{author}</p>
+          </Card>
         ))}
+        <Card className={classes.card}>
+          <h2>Info</h2>
         <p>{response.classCode}</p>
         <p>{response.courseLevel}</p>
         <p>{response.description}</p>
@@ -92,13 +109,23 @@ function Project(props) {
         <p>{response.isLiveUrl}</p>
         <p>{response.productionDate}</p>
         <p>{response.approved}</p>
+        </Card>
         {response.tags.map((tag, i) => (
+          <Card className={classes.card}>
+            <h2>Tags</h2>
           <p>{tag}</p>
+          </Card>
         ))}
         {response.upVotedBy.map((voter, i) => (
+          <Card className={classes.card}>
+            <h2>Upvoted by</h2>
           <p>{voter}</p>
+          </Card>
         ))}
+        <Card className={classes.card}>
+          <h2>Upvotes</h2>
         <p>{response.upvotes}</p>
+        </Card>
       </>
       :''
       }
