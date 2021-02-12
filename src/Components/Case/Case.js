@@ -69,11 +69,12 @@ function Case(props) {
           className="individualGridView"
           item 
           container 
-          xs 
           direction="column"
           justify="space-evenly"
           alignContent="center"
-          alignItems="flex-start">
+          alignItems="flex-start"
+          xs
+          >
             <Paper 
               elevation={4} 
               className="GridPaper">
