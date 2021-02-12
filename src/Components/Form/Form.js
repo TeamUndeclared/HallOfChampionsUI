@@ -97,7 +97,7 @@ function Form(props) {
     const saveProject =  async() => {
 
       const data = await axios({
-        url: 'https://hall-of-fame-uf-dev.herokuapp.com/api/v2/projects/',
+        url: 'https://hall-of-fame-uf-dev.herokuapp.com/api/v1/projects/',
         method: 'POST',
         header: {
           'Content-Type': 'application/json',

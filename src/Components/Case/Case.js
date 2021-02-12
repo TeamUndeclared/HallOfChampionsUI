@@ -6,29 +6,28 @@ import { makeStyles, Paper, Card, CardMedia, CardContent, Button, Grid } from '@
 import "../../Assets/scss/main.scss";
 import './Case.scss';
 
-function Main(props) {
-  const [response,setResponse] = useState({})
-  const [userQuery, setUserQuery] = useState(useQuery())
-  
+function Case(props) {
   let qpType, qpQuery = '';
+  const [response, setResponse] = useState({});
+  const [userQuery, setUserQuery] = useState(useQuery());
   
   function useQuery() {
     let location = useLocation();
     const urlparams = new URLSearchParams(location.search);
     qpType = urlparams.get('type');
     qpQuery = urlparams.get('query');
-    return urlparams
+    return urlparams;
   }
 
   const getProjects =  async(qpType, qpQuery) => {
     console.log(qpType, qpQuery)
     //requestOptions.body = await payload;
-    return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v2/search/${qpType}?search=${qpQuery}`)
+    return axios.get(`https://hall-of-fame-uf-dev.herokuapp.com/api/v1/search/${qpType}?search=${qpQuery}`)
       .then(response => {
           setResponse(response.data)
     })
   }
-  
+
   useEffect(() => {
     getProjects(qpType, qpQuery);
   }, [userQuery]);
@@ -102,6 +101,4 @@ function Main(props) {
   );
 }
 
-
-
-export default Main ;
+export default Case;
