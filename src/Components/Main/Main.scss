@@ -1,5 +1,11 @@
 #mainView {
   &.Main {
-    max-width: 960px;
+    margin: 5vh auto;
+    // max-width: 960px;
+    width: 100vw;
+    max-height: 60vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    
   }
 }
