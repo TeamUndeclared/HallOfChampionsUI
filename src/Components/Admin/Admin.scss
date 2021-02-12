@@ -1,0 +1,19 @@
+#adminView{
+  &.AdminTable {
+    margin: 5vh auto;
+    // height: 60vh;
+    width: 90vw;
+    max-height: 60vh;
+    // max-width: 960px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    text-align: left;
+    padding: 1em;
+  }
+  .isTrue{
+    color: rgb(81, 176, 73);
+  }
+  .isFalse{
+    color: rgb(229, 34, 43);
+  }
+}
