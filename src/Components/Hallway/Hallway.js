@@ -10,7 +10,7 @@ import Case from '../Case/Case';
 import Admin from '../Admin/Admin';
 import Main from '../Main/Main';
 import ProfilePage from '../Auth/profile/Profile-page';
-
+import AboutUs from '../About/About';
 
 function Hallway() {
 
@@ -19,6 +19,9 @@ function Hallway() {
       <Switch>
         <Route exact path="/">
           <Main />
+        </Route>
+        <Route exact path="/about">
+          <AboutUs />
         </Route>
         <Route path="/case">
           <Case />

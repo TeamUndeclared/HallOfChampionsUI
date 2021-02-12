@@ -20,6 +20,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+
 import './Nav.scss';
 // Import Redux Store
 
@@ -64,15 +65,7 @@ function Nav(props) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
-        <ListItem>
-          <ListItemText>
-            <Typography variant="h1" className="headerTitle">Cart:</Typography>
-            <Typography variant="body1">Click an item to edit quantity:</Typography>
-          </ListItemText>
-        </ListItem>
-      </List>
-      <Divider />
+      
       <List>
         <Link to='/form' underline='none'>
           <ListItem button aria-describedby="Submit a Project" alignitems="flex-start">
@@ -83,55 +76,37 @@ function Nav(props) {
           </ListItem>
           </Link>
 
-        <Link to='/form'>
-          <ListItem href="/form">
-            <ListItemAvatar>
-              <Avatar alt='Submit'>
-                <SendIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText>
-              <Typography variant="h2" className="navLink">Submit a Project</Typography>
-            </ListItemText>
-          </ListItem>
-        </Link>
 
         <Link to='/profile'>
-          <ListItem href="/profile">
+          <ListItem button aria-describedby="My Profile" alignitems="flex-start">
             <ListItemAvatar>
-              <Avatar alt='Profile'>
+              <Avatar alt='Submit Icon'>
                 <AccountCircle />
-              </Avatar>
+              </Avatar>        
             </ListItemAvatar>
-            <ListItemText>
-              <Typography variant="h2" className="navLink">My Profile</Typography>
-            </ListItemText>
+            <ListItemText primary='My Profile' />
           </ListItem>
         </Link>
 
         <Link to='/about'>
-          <ListItem href="/about">
+          <ListItem button aria-describedby="About Us" alignitems="flex-start">
             <ListItemAvatar>
               <Avatar alt='About'>
                 <InfoIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText>
-              <Typography variant="h2" className="navLink">About Us</Typography>
-            </ListItemText>
+            <ListItemText primary='About Us' />
           </ListItem>
         </Link>
 
         <Link to='/admin' color="inherit">
-          <ListItem href="/admin">
+          <ListItem button aria-describedby="Admin" alignitems="flex-start">
             <ListItemAvatar>
               <Avatar alt='Admin'>
                 <HomeIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText>
-              <Typography variant="h2" className="navLink">Admin</Typography>
-            </ListItemText>
+            <ListItemText primary='Admin' />
           </ListItem>
         </Link>
 
