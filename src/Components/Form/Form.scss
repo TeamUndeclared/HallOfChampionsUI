@@ -16,7 +16,7 @@
     padding-left: 1.5rem;
     padding-right: 1.5rem;
 
-    input {
+    input, .inputMatch {
       font-size: 150%;
     }
     select {
@@ -24,7 +24,20 @@
     }
   }
   .formInput {
-    // width: 50%;
+    width: 100%;
+    &.radioGroup {
+      padding-top: 10px;
+    }
+  }
+  #fileSelectInput, #fileSelectButton {
+    padding-top: 5px;
+    width: 50% !important;
+    float: left;
+  }
+
+  .uploadedImage {
+    height: auto;
+    width: 100%; 
   }
 }
 #submitButton {
