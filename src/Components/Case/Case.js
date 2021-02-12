@@ -13,7 +13,9 @@ function Case(props) {
   
   function useQuery() {
     let location = useLocation();
+    console.log(location);
     const urlparams = new URLSearchParams(location.search);
+    console.log(urlparams)
     qpType = urlparams.get('type');
     qpQuery = urlparams.get('query');
     return urlparams;
