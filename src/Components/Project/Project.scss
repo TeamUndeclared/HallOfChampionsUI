@@ -1,17 +1,11 @@
 #projectView {
   &.Project {
     margin: 5vh auto;
-    // height: 60vh;
-    width: 75vw;
+    width: 85vw;
     max-height: 60vh;
-    // max-width: 960px;
     overflow-x: hidden;
     overflow-y: scroll;
     text-align: left;
     padding: 1em;
   }
-}
-
-.projectCard {
-  
 }

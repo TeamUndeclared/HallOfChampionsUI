@@ -35,7 +35,6 @@ ReactDOM.render(
       clientId="szqzPq37DJGEMQk3eiqMEwp0t6JKcZQj"
       redirectUri={window.location.origin}
       audience="https://hall-of-fame-uf-dev.herokuapp.com/"
-      scope=""
     >
       <ThemeProvider theme={theme}>
         <CssBaseline />

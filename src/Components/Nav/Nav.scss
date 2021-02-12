@@ -9,17 +9,10 @@
   white-space: nowrap;
 }
 
-#appNav a h2 {
+#appNav .MuiListItemText-primary {
   color: black !important;
-  text-decoration: none;
+  text-decoration: none !important;
 }
-
-#appNav a:visited h2.headerTitle, #appNav a:link h2.headerTitle
-{
-  color: black !important;
-  text-decoration: none;
-}
-
 
 #appCart .cartTotal {
   font-size: 200%;
